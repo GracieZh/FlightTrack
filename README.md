@@ -1,5 +1,5 @@
-# <Our proj name>
-<proj description>
+# { Our proj name }
+{ proj description }
 
 ## Table of Contents
 - [Features](#features)
