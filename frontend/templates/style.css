@@ -1,0 +1,21 @@
+.message {
+    padding: 10px;
+    margin: 5px;
+    background-color: #b3d3b3;
+    width: 30%;
+}
+nav a {
+    color: #2ebea8;
+    font-size: 3em;
+    margin-left: 50px;
+    text-decoration: none;
+}
+
+body {
+    background-color: #0000ff;
+    background-size: 100% 100%;
+}
+
+h1 {
+    color:#c4ea1d
+}

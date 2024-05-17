@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Users {% endblock %}</h1>
+    <div class='message'>
+        <table border="2" cellpadding="5">
+            {% for message in messages %}
+            <tr>
+                <td>{{ message['id'] }}</td>
+                <td>{{ message['fullname'] }}</td>  
+                <td>{{ message['username'] }}</td>
+                <td>{{ message['password'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
