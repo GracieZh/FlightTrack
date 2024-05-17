@@ -32,7 +32,7 @@ CREATE TABLE users (
 INSERT INTO users VALUES (23485, 'Goose1', 'mr.goose', 'imapw-willhashlater');
 INSERT INTO users VALUES (472983, 'Babygoose1', 'gosling1', 'pw2');
 ```
-Note: passwords will be stored as hashes instead how they're currently stored in the initial version of the application
+Note: passwords will be stored as hashes instead of how they're currently stored in the initial version of the application
 
 ### Getting Started
 Clone the repository
