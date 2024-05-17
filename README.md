@@ -11,7 +11,8 @@
 
 ## Setup
 ### Prerequisites
-- Install PostgreSQL and Python 3.11.4
+- Install PostgreSQL 
+- Install Python (the app was built with version 3.11.4)
 - Set up ssh on your laptop/pc (or download a zip)
 
 ### PostgreSQL DB Setup and Backend Configuration
