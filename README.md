@@ -1,13 +1,13 @@
-# { Proj name }
-{ proj description }
+# FlightTrack
+FlightTrack is a data analytics platform for JFK International Airport, tracking flight arrivals, departures, and delays using real datasets. Designed for airport management, airlines, as well as travelers, it offers insights for optimized scheduling and operational efficiency. Features include graphical analysis of delay-causing flights, predictive taxi-out times, weather integration, and comparative carrier performance.
 
 ## Table of Contents
 - [Features](#features)
 - [Setup](#setup)
+    - [Prerequisites](#prerequisites)
+    - [PSQL Setup and Backend Configs](#psql-setup-and-backend-configs)
+    - [Getting Started](#getting-started)
 - [Contributors](#contributors)
-
-## Features
-
 
 ## Setup
 ### Prerequisites
@@ -15,7 +15,7 @@
 - Install Python (the app was built with version 3.11.4)
 - Set up ssh on your laptop/pc (or download a zip)
 
-### PostgreSQL DB Setup and Backend Configuration
+### PSQL Setup and Backend Configs
 Make sure you have the correct database information in lines 11-15 of the `backend/bk.py` script to match what you have on your device. As of now, use the script below to set up your local database. Open you Psql shell and enter your psql credentials. Then, type the following:
 
 ```sql
