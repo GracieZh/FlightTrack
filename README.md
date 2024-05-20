@@ -2,7 +2,6 @@
 FlightTrack is a data analytics platform for JFK International Airport, tracking flight arrivals, departures, and delays using real datasets. Designed for airport management, airlines, as well as travelers, it offers insights for optimized scheduling and operational efficiency. Features include graphical analysis of delay-causing flights, predictive taxi-out times, weather integration, and comparative carrier performance.
 
 ## Table of Contents
-- [Features](#features)
 - [Setup](#setup)
     - [Prerequisites](#prerequisites)
     - [PSQL Setup and Backend Configs](#psql-setup-and-backend-configs)
