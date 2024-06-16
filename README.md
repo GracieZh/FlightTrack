@@ -19,15 +19,34 @@ Make sure you have the correct database information in lines 11-15 of the `backe
 
 ```sql
 CREATE DATABASE appdb;
-\c appdb
+\c appdb -- choose database
 
-CREATE TABLE users (
-  id integer PRIMARY KEY,
-  fullname VARCHAR(255),
-  username VARCHAR(255),
-  password VARCHAR(255)
-); 
-\dt
+CREATE TABLE jfk_data (
+  month INT,
+  day_of_month INT,
+  day_of_week INT,
+  carrier_code VARCHAR(3),
+  tail_num VARCHAR(7),
+  dest VARCHAR(4),
+  dep_delay INT,
+  crs_elapsed_time INT,
+  distance INT,
+  crs_dep_time INT,
+  dep_time INT,
+  crs_arr_time INT,
+  temp INT,
+  dew VARCHAR(5),
+  humidity INT,
+  wind_direction VARCHAR(5),
+  wind_speed INT,
+  wind_gust INT,
+  pressure float4,
+  condition VARCHAR(50),
+  sch_dep INT,
+  sch_arr INT,
+  taxi_out INT
+);
+\dt -- list tables in current database
 
 INSERT INTO users VALUES (23485, 'Goose1', 'mr.goose', 'imapw-willhashlater');
 INSERT INTO users VALUES (472983, 'Babygoose1', 'gosling1', 'pw2');

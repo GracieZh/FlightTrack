@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Stats {% endblock %}</h1>
+    <div class='stats'>
+        <table><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <thead>
+                    <td>Carrier Code</td>
+                    <td>Number of records in the data table</td>
+                    <td>Percentage</td>
+                </thead>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row['carrier_code'] }}</td>
+                    <td>{{ row['count'] }}</td>  
+                    <td>{{ row['percentage'] }}&percnt;</td>  
+                </tr>
+                {% endfor %}
+            </table>
+        </td><td>
+            <img src="/png/stats_carriercode.png" width="300" height="300" alt="Carrier code distribution">
+        </td></tr></table>
+    </div>
+{% endblock %}
