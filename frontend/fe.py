@@ -2,7 +2,8 @@
 from flask import Flask, render_template, send_file
 import json
 import urllib.request
-from stats_1 import stats_carriercode
+from stats_1 import stats_carriercode, stats_carrier_performance
+
 from users_1 import user_list
 
 app = Flask(__name__)
@@ -26,6 +27,10 @@ def home():
 @app.route('/stats/carriercode')
 def handle_stats_carriercode():
     return stats_carriercode()
+
+@app.route('/stats/carrierperformance')
+def handle_stats_carrier_performance():
+    return stats_carrier_performance()
 
 @app.route('/user/list')
 def handle_user_list():

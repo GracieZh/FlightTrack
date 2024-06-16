@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Stats {% endblock %}</h1>
+    <div class='stats'>
+        <table><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <thead>
+                    <td>Carrier Code</td>
+                    <td>Total flights</td>
+                    <td>Number of delay</td>
+                    <td>Percent of delay</td>
+                    <td>minimum delay</td>
+                    <td>maximum delay</td>
+                    <td>average delay</td>
+                </thead>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row['carrier_code'] }}</td>
+                    <td>{{ row['total_flights'] }}</td>  
+                    <td>{{ row['num_of_delay'] }}</td>  
+                    <td>{{ row['percent_of_delay'] }}&percnt;</td>  
+                    <td>{{ row['min_delay'] }}</td>  
+                    <td>{{ row['max_delay'] }}</td>  
+                    <td>{{ row['avg_delay'] }}</td>  
+                </tr>
+                {% endfor %}
+            </table>
+        </td></tr></table>
+    </div>
+{% endblock %}
