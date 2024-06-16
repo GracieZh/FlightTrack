@@ -1,6 +1,7 @@
 from flask import render_template
 from conn import get_conn
 from psycopg2 import Error
+import math
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -108,5 +109,26 @@ def stats_carrier_performance():
     
     # present data
 
+    print("-------------------")
+    print(stats)
+    print("-------------------")
+    
+    # Function to calculate log value based on the sign of v
+    def calculate_log_value(v):
+        if v >= 0:
+            return round(math.log(v + 1), 2)
+        else:
+            return round(-math.log(-v + 1), 2)
+
+    # Iterate through each dictionary in data and append log values
+    for item in stats:
+        item['log_mind'] = calculate_log_value(item['min_delay'])
+        item['log_maxd'] = calculate_log_value(item['max_delay'])
+        item['log_avgd'] = calculate_log_value(item['avg_delay'])
+
+    print(stats)
+    print("============")
+
     return render_template('stats_carrier_delay.html', rows=stats)
+
 

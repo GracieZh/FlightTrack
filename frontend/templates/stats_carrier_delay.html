@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{% block title %} Stats {% endblock %}</h1>
     <div class='stats'>
-        <table><tr><td>
+        <table style="background-color:#FFFFE0;"><tr><td>
             <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
                 <thead>
                     <td>Carrier Code</td>
@@ -26,6 +26,53 @@
                 </tr>
                 {% endfor %}
             </table>
-        </td></tr></table>
+        </td><td>
+            <svg width="550" height="350">
+                <!-- Y-axis -->
+                <line x1="90" y1="50" x2="90" y2="310" stroke="gray" />
+            
+                <!-- Y-axis labels -->
+                <text x="80" y="80" text-anchor="end">Max</text>
+                <text x="80" y="130" text-anchor="end">Avg</text>
+                <text x="80" y="180" text-anchor="end">Min</text>
+
+                <text x="80" y="250" text-anchor="end">Delay</text>
+                <text x="80" y="290" text-anchor="end">No delay</text>
+                
+                {% for row in rows %}
+                    {% set x1 = loop.index * 50 + 55 %}
+                    {% set x2 = loop.index * 50 + 65 %}
+                    {% set xc = loop.index * 50 + 60 %}
+                    {% set y1 = 150 - row['log_mind'] * 10 %}
+                    {% set y2 = 150 - row['log_maxd'] * 10 %}
+                    {% set yc = 150 - row['log_avgd'] * 10 %}
+                    <line x1="{{x1}}" x2="{{x2}}" y1="{{y1}}" y2="{{y1}}" stroke="black" />  <!-- First horizontal line -->
+                    <line x1="{{x1}}" y1="{{y2}}" x2="{{x2}}" y2="{{y2}}" stroke="red" />  <!-- Second horizontal line -->
+                    <line x1="{{xc}}" y1="{{y1}}" x2="{{xc}}" y2="{{y2}}" stroke="blue" />  <!-- Vertical line connecting centers -->
+                    <circle cx="{{xc}}" cy="{{yc}}" r="5" fill="green" />  <!-- Circle in the middle of the vertical line -->
+
+                    {%  set h2 = row['num_of_delay'] / 100 %}
+                    {%  set h1 = row['total_flights'] / 100 - h2 %}
+
+                    {%  set z1 = 290 - h1 %}
+                    {%  set z2 = z1 - h2 %}
+
+                    <rect x="{{x1}}" y="{{z1}}" width="10" height="{{h1}}" fill="lightblue" stroke="blue" stroke-width="2" />
+                    <rect x="{{x1}}" y="{{z2}}" width="10" height="{{h2}}" fill="pink" stroke="red" stroke-width="2" />
+
+                {% endfor %}
+            
+                <!-- X-axis -->
+                <line x1="90" y1="310" x2="500" y2="310" stroke="gray" />
+            
+                <!-- X-axis labels -->
+                {% for row in rows %}
+                    <text x="{{ loop.index * 50 + 60 }}" y="330" text-anchor="middle">{{ row['carrier_code'] }}</text>
+                {% endfor %}
+
+
+            </svg>            
+        </td>
+        </tr></table>
     </div>
 {% endblock %}
