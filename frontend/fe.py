@@ -1,9 +1,6 @@
 
 from flask import Flask, render_template, send_file
-import json
-import urllib.request
 from stats_1 import stats_carriercode, stats_carrier_performance
-
 from users_1 import user_list
 
 app = Flask(__name__)

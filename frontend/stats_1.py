@@ -4,7 +4,6 @@ from psycopg2 import Error
 import math
 
 import matplotlib.pyplot as plt
-import numpy as np
 
 def stats_carriercode():
 
@@ -15,14 +14,14 @@ def stats_carriercode():
         cur.execute(
             """
                 WITH total_count AS (
-                    SELECT COUNT(*) AS total FROM jfk_data
+                    SELECT COUNT(*) AS total FROM flight
                 )
                 SELECT 
                     carrier_code, 
                     COUNT(*) AS c,
                     ROUND((COUNT(*) * 100.0 / (SELECT total FROM total_count)), 1) AS percentage
                 FROM 
-                    jfk_data
+                    flight
                 GROUP BY 
                     carrier_code
                 ORDER BY 
@@ -68,12 +67,12 @@ def stats_carrier_performance():
                     SELECT 
                         carrier_code,
                         COUNT(*) AS total_flights,
-                        COUNT(CASE WHEN dep_delay > 0 THEN 1 END) AS num_of_delay,
-                        MIN(dep_delay) AS min_delay,
-                        MAX(dep_delay) AS max_delay,
-                        AVG(dep_delay) AS avg_delay
+                        COUNT(CASE WHEN departure_delay > 0 THEN 1 END) AS num_of_delay,
+                        MIN(departure_delay) AS min_delay,
+                        MAX(departure_delay) AS max_delay,
+                        AVG(departure_delay) AS avg_delay
                     FROM 
-                        jfk_data
+                        flight
                     GROUP BY 
                         carrier_code
                 )
