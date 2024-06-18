@@ -33,7 +33,8 @@ Please update the path to the csv files based on where they are on your device
 
 Run the application script
 ```
-python frontend/fe.py
+cd frontend
+python fe.py
 ```
 
 Open a browser and visit http://localhost:8080/ to access the app
