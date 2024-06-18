@@ -13,7 +13,7 @@ FlightTrack is a data analytics platform for JFK International Airport, tracking
 - Install PostgreSQL 
 - Install Python (the app was built with version 3.11.4)
 - Set up ssh on your laptop/pc (or download a zip)
-- Have the raw data csv files: jfk_airport.csv and airlines_with_iata.csv
+- Have the raw data csv files: `jfk_airport.csv` and `airlines_with_iata.csv`
 
 ### PSQL Setup and Backend Configs
 Make sure you have the correct database information in `frontend/conn.py`.

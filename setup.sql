@@ -34,8 +34,6 @@ FROM 'C:\projects\cs338-proj\dataset\jfk_airport.csv'
 DELIMITER ',' 
 CSV HEADER;
 
-ALTER TABLE jfk_data ADD COLUMN id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY; -- don't really need this
-
 -- Setting up flight table 
 
 CREATE TABLE flight (
@@ -92,8 +90,10 @@ INSERT INTO weather_condition(
 SELECT id, temp, dew, humidity, wind_direction, wind_speed, wind_gust, pressure, condition
 FROM jfk_data;
 
--- Setting up Airline table to import airlines data from Wikipedia
---    Data from https://en.wikipedia.org/wiki/List_of_airline_codes
+DROP TABLE jfk_data;
+
+-- Setting up Airline table to import airlines data obtained the following Wikipedia page
+--    https://en.wikipedia.org/wiki/List_of_airline_codes
 
 CREATE TABLE airline (
     IATA VARCHAR(5),
