@@ -1,6 +1,6 @@
 
-from flask import Flask, render_template, send_file
-from stats_1 import stats_carriercode, stats_carrier_performance
+from flask import Flask, render_template, send_file, request
+from stats_1 import stats_carriercode, stats_carrier_performance, stats_carrier_performance_compare
 from users_1 import user_list
 
 app = Flask(__name__)
@@ -27,7 +27,11 @@ def handle_stats_carriercode():
 
 @app.route('/stats/carrierperformance')
 def handle_stats_carrier_performance():
-    return stats_carrier_performance()
+    carrier_codes = request.args.getlist('c')   # Extract the list of values for the 'c' parameter 
+    if len(carrier_codes) == 0:
+        return stats_carrier_performance()
+    else:
+        return stats_carrier_performance_compare(carrier_codes)
 
 @app.route('/user/list')
 def handle_user_list():
