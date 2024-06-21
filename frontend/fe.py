@@ -2,6 +2,7 @@
 from flask import Flask, render_template, send_file, request
 from stats_1 import stats_carriercode, stats_carrier_performance, stats_carrier_performance_compare
 from users_1 import user_list
+from flights_1 import flights_search
 
 app = Flask(__name__)
 
@@ -32,6 +33,10 @@ def handle_stats_carrier_performance():
         return stats_carrier_performance()
     else:
         return stats_carrier_performance_compare(carrier_codes)
+
+@app.route('/flights/search')
+def handle_flights_search():
+    return flights_search()
 
 @app.route('/user/list')
 def handle_user_list():

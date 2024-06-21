@@ -13,7 +13,7 @@
     <nav class="menu">
         <a href="/">Home</a>
         <a href="#" id="statsLink">Statistics</a>
-        <a href="/">Feature 3</a>
+        <a href="#" id="flightsLink">Flights</a>
         <a href="/">Feature 4</a>
         <a href="/">Feature 5</a>
         <a href="#" id="usersLink">Users</a>
@@ -27,6 +27,16 @@
             <a href="/">stats 5</a>
         </nav>
     </div>
+    <div id="flights">
+        <nav class="menu">
+            <a href="{{ url_for('handle_flights_search') }}">Search for flights</a>
+            <a href="/">flights 2</a>
+            <a href="/">flights 3</a>
+            <a href="/">flights 4</a>
+            <a href="/">flights 5</a>
+        </nav>
+    </div>
+
     <div id="users">
         <nav class="menu">
             <a href="{{ url_for('handle_user_list') }}">User list</a>
