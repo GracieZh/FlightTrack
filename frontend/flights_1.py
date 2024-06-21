@@ -57,7 +57,7 @@ def flights_search():
             cur = conn.cursor()
             cur.execute(f"""
                     SELECT  
-                        month, day_of_month, carrier_code, airline.name, tail_num, destination, departure_delay
+                        month, day_of_month, carrier_code, airline.name, tail_num, arrival_airport_code, departure_delay
                     FROM 
                         flight
                     JOIN 

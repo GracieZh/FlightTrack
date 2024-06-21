@@ -43,8 +43,6 @@ CREATE TABLE flight (
   month INT,
   day_of_month INT,
   day_of_week INT,
-  source VARCHAR(25),
-  destination VARCHAR(4),
   carrier_code VARCHAR(3),
   tail_num VARCHAR(7),
   scheduled_journey_time INT,  
@@ -53,8 +51,6 @@ CREATE TABLE flight (
   departure_time INT,
   departure_delay INT,
   scheduled_arrival_time INT,
-  no_of_flights_sch_arr INT,
-  no_of_flights_sch_dep INT,
   taxi_out INT,
   captain_ssn INT,
   departure_airport_code VARCHAR(25),
@@ -62,15 +58,13 @@ CREATE TABLE flight (
 );
 
 INSERT INTO flight(
-  month, day_of_month, day_of_week, destination, carrier_code, tail_num, 
+  month, day_of_month, day_of_week, arrival_airport_code, carrier_code, tail_num, 
   scheduled_journey_time, distance, scheduled_departure_time, departure_time, 
-  departure_delay, scheduled_arrival_time, no_of_flights_sch_arr, 
-  no_of_flights_sch_dep, taxi_out
+  departure_delay, scheduled_arrival_time, taxi_out
 )
 SELECT month, day_of_month, day_of_week, dest, carrier_code, tail_num,
   crs_elapsed_time, distance, crs_dep_time, dep_time, 
-  dep_delay, crs_arr_time, sch_dep, 
-  sch_arr, taxi_out
+  dep_delay, crs_arr_time, taxi_out
 FROM jfk_data;
 
 -- Setting up weather_condition table 
@@ -127,3 +121,80 @@ ALTER TABLE airline DROP COLUMN CallSign;
 ALTER TABLE airline DROP COLUMN Comments;
 
 ALTER TABLE airline ADD PRIMARY KEY (Airline_id);
+
+-- ===================================
+-- =========== SAMPLE DATA ===========
+-- ===================================
+
+-- Flight
+CREATE TABLE sample_flight (
+  id INT 
+    GENERATED ALWAYS AS IDENTITY 
+    PRIMARY KEY,
+  month INT,
+  day_of_month INT,
+  day_of_week INT,
+  carrier_code VARCHAR(3),
+  tail_num VARCHAR(7),
+  scheduled_journey_time INT,  
+  distance INT,
+  scheduled_departure_time INT,
+  departure_time INT,
+  departure_delay INT,
+  scheduled_arrival_time INT,
+  taxi_out INT,
+  captain_ssn INT,
+  departure_airport_code VARCHAR(25),
+  arrival_airport_code VARCHAR(25)
+);
+
+INSERT INTO sample_flight(
+  month, day_of_month, day_of_week, arrival_airport_code, carrier_code, tail_num, 
+  scheduled_journey_time, distance, scheduled_departure_time, departure_time, 
+  departure_delay, scheduled_arrival_time, taxi_out
+)
+SELECT month, day_of_month, day_of_week, arrival_airport_code, carrier_code, tail_num, 
+  scheduled_journey_time, distance, scheduled_departure_time, departure_time, 
+  departure_delay, scheduled_arrival_time, taxi_out
+FROM flight
+LIMIT 5;
+
+UPDATE sample_flight
+SET departure_airport_code = (CASE (random()*5)::INT WHEN 0 THEN 'LAX' 
+                                                     WHEN 1 THEN 'JFK' 
+                                                     WHEN 2 THEN 'PHX' 
+                                                     WHEN 3 THEN 'SJU' 
+                                                     WHEN 4 THEN 'ATL' 
+                              END);
+
+UPDATE sample_flight
+SET captain_ssn = floor(random() * 900000000 + 100000000)::bigint;
+
+
+-- Airline
+CREATE TABLE sample_airline (
+    Airline_id VARCHAR(5),
+    Name VARCHAR(128),
+    Country VARCHAR(128)
+);
+
+INSERT INTO sample_airline(
+  Airline_id, Name, Country
+)
+SELECT Airline_id, Name, Country
+FROM airline
+LIMIT 5;
+
+-- Aircraft
+CREATE TABLE sample_aircraft (
+  tail_no VARCHAR(7),
+  model VARCHAR(25),
+  capacity INT,
+  number_of_seats INT,
+  airline_id VARCHAR(3)
+);
+
+COPY sample_aircraft
+FROM 'C:\projects\cs338-proj\dataset\sample_aircraft.csv' 
+DELIMITER ',' 
+CSV HEADER;
