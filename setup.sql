@@ -157,7 +157,7 @@ SELECT month, day_of_month, day_of_week, arrival_airport_code, carrier_code, tai
   scheduled_journey_time, distance, scheduled_departure_time, departure_time, 
   departure_delay, scheduled_arrival_time, taxi_out
 FROM flight
-LIMIT 5;
+LIMIT 20;
 
 UPDATE sample_flight
 SET departure_airport_code = (CASE (random()*5)::INT WHEN 0 THEN 'LAX' 
@@ -198,3 +198,83 @@ COPY sample_aircraft
 FROM 'C:\projects\cs338-proj\dataset\sample_aircraft.csv' 
 DELIMITER ',' 
 CSV HEADER;
+
+-- Airport
+CREATE TABLE sample_airport (
+  code VARCHAR(4),
+  name VARCHAR(100),
+  city VARCHAR(50),
+  country VARCHAR(25),
+  number_of_runways INT
+);
+
+COPY sample_airport
+FROM 'C:\projects\cs338-proj\dataset\sample_airport.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+-- Departs_from
+CREATE TABLE sample_departs_from (
+  flight_id INT PRIMARY KEY,
+  airport_code VARCHAR(4),
+  departure_time INT,
+  departure_delay INT
+);
+
+COPY sample_departs_from
+FROM 'C:\projects\cs338-proj\dataset\sample_departs_from.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_departs_from
+ADD CONSTRAINT fk_flight_id 
+FOREIGN KEY (flight_id) 
+REFERENCES sample_flight (id) 
+ON DELETE CASCADE;
+
+-- Arrives_at
+CREATE TABLE sample_arrives_at (
+  flight_id INT PRIMARY KEY,
+  airport_code VARCHAR(4),
+  arrival_time INT
+);
+
+COPY sample_arrives_at
+FROM 'C:\projects\cs338-proj\dataset\sample_arrives_at.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_arrives_at
+ADD CONSTRAINT fk_flight_id 
+FOREIGN KEY (flight_id) 
+REFERENCES sample_flight (id) 
+ON DELETE CASCADE;
+
+-- Weather_condition
+CREATE TABLE sample_weather_condition (
+  flight_id INT PRIMARY KEY,
+  temperature INT,
+  dew_point VARCHAR(5),
+  humidity INT,
+  wind_dir VARCHAR(5),
+  wind_speed INT,
+  wind_gust INT,
+  pressure float4,
+  condition VARCHAR(50)
+);
+
+INSERT INTO sample_weather_condition(
+  flight_id, temperature, dew_point, humidity, wind_dir, 
+  wind_speed, wind_gust, pressure, condition
+)
+SELECT id, temperature, dew_point, humidity, wind_dir, 
+       wind_speed, wind_gust, pressure, condition
+FROM weather_condition
+LIMIT 20;
+
+ALTER TABLE sample_weather_condition
+ADD CONSTRAINT fk_flight_id 
+FOREIGN KEY (flight_id) 
+REFERENCES sample_flight (id) 
+ON DELETE CASCADE;
+
