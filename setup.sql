@@ -37,8 +37,12 @@ CSV HEADER;
 -- Setting up flight table 
 
 CREATE TABLE flight (
-  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  date VARCHAR(25),
+  id INT 
+    GENERATED ALWAYS AS IDENTITY 
+    PRIMARY KEY,
+  month INT,
+  day_of_month INT,
+  day_of_week INT,
   source VARCHAR(25),
   destination VARCHAR(4),
   carrier_code VARCHAR(3),
@@ -58,13 +62,15 @@ CREATE TABLE flight (
 );
 
 INSERT INTO flight(
-    date, destination, carrier_code, tail_num, scheduled_journey_time, 
-    distance, scheduled_departure_time, departure_time, departure_delay, scheduled_arrival_time, 
-    no_of_flights_sch_arr, no_of_flights_sch_dep, taxi_out
+  month, day_of_month, day_of_week, destination, carrier_code, tail_num, 
+  scheduled_journey_time, distance, scheduled_departure_time, departure_time, 
+  departure_delay, scheduled_arrival_time, no_of_flights_sch_arr, 
+  no_of_flights_sch_dep, taxi_out
 )
-SELECT concat_ws('-', CAST(day_of_week AS text), CAST(month AS text), CAST(day_of_month AS text)), dest, carrier_code, tail_num, crs_elapsed_time,
-       distance, crs_dep_time, dep_time, dep_delay, crs_arr_time, 
-       sch_dep, sch_arr, taxi_out
+SELECT month, day_of_month, day_of_week, dest, carrier_code, tail_num,
+  crs_elapsed_time, distance, crs_dep_time, dep_time, 
+  dep_delay, crs_arr_time, sch_dep, 
+  sch_arr, taxi_out
 FROM jfk_data;
 
 -- Setting up weather_condition table 
@@ -83,9 +89,11 @@ CREATE TABLE weather_condition (
   condition VARCHAR(50)
 );
 
+ALTER TABLE jfk_data ADD COLUMN id SERIAL PRIMARY KEY;
+
 INSERT INTO weather_condition(
-    id, temperature, dew_point, humidity, wind_dir, 
-    wind_speed, wind_gust, pressure, condition
+  id, temperature, dew_point, humidity, wind_dir, 
+  wind_speed, wind_gust, pressure, condition
 )
 SELECT id, temp, dew, humidity, wind_direction, wind_speed, wind_gust, pressure, condition
 FROM jfk_data;
