@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Flights {% endblock %}</h1>
+    <div class='stats'>
+        {% if flights|length >0 %}
+        <table style="background-color:#FFFFE0;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <caption><H2>Top 10 Delay Flights</H2></caption>
+                <thead>
+                    <tr><th>Month</th>
+                        <th>Day</th>
+                        <th colspan="2">Carrier</th>                        
+                        <th>Flight</th>
+                        <th>Destination (Arrival Airport Code)</th>
+                        <th>Delay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for flight in flights %}<tr>
+                    {% for i in range(7) %}<td>{{flight[i]}}</td>{% endfor %}
+                    </tr>{% endfor %}
+                </tbody>
+            </table>
+        </td></tr>
+        </table>
+        <br/>
+        <br/>
+        {% endif %}
+
+        
+        <table style="background-color:#FFFFE0;"><tr><td>
+            <form action="?" method="get">
+            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <thead>
+                    <tr><th colspan="2">Search for flights</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>From date</td><td>
+                        <select name="fm">
+                            <option value="12">December</option>
+                            <option value="11">November</option>
+                            <option value="1">January</option>
+                        </select>                        
+                        <select name="fd">
+                            {% for i in range(1,32) %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                        </select>                        
+                    </td></tr>
+                    <tr><td>To date</td><td>
+                        <select name="tm">
+                            <option value="12">December</option>
+                            <option value="11">November</option>
+                            <option value="1" selected="selected">January</option>
+                        </select>                        
+                        <select name="td">
+                            {% for i in range(1,31) %}
+                            <option value="{{i}}">{{i}}</option>
+                            {% endfor %}
+                            <option value="31" selected="selected">31</option>
+                        </select>                        
+                    </td></tr>
+                    <tr><td>carrier</td><td>
+                        {% for carrier in carriers %}
+                            <input type="checkbox" id="cid" name="c" value="{{carrier.id}}"> {{carrier.id}} - {{carrier.name}} <br/>
+                        {% endfor %}
+                    </td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Search"></td></tr>          
+                </tbody>
+            </table>
+            
+            </form>
+        </td><td>
+        </td>
+        </tr></table>
+    </div>
+{% endblock %}
+
+
+
+
