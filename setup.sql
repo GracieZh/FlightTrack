@@ -361,3 +361,91 @@ ADD CONSTRAINT fk_ssn
 FOREIGN KEY (ssn) 
 REFERENCES sample_user (ssn) 
 ON DELETE CASCADE;
+
+-- Pilot
+CREATE TABLE sample_pilot (
+  ssn INT PRIMARY KEY,
+  flight_hours INT,
+  liscence_number INT
+);
+
+COPY sample_pilot
+FROM 'C:\projects\cs338-proj\dataset\sample_pilot.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_pilot
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+
+-- Attendant
+CREATE TABLE sample_attendant (
+  ssn INT PRIMARY KEY,
+  plane_section INT,
+  supper_ssn INT
+);
+
+COPY sample_attendant
+FROM 'C:\projects\cs338-proj\dataset\sample_attendant.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_attendant
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+-- Captain
+CREATE TABLE sample_captain (
+  ssn INT PRIMARY KEY
+);
+
+COPY sample_captain
+FROM 'C:\projects\cs338-proj\dataset\sample_captain.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_captain
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+-- First_officer
+CREATE TABLE sample_first_officer (
+  ssn INT PRIMARY KEY
+);
+
+COPY sample_first_officer
+FROM 'C:\projects\cs338-proj\dataset\sample_first_officer.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_first_officer
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+-- Flight_crew_log
+CREATE TABLE sample_flight_crew_log (
+  flight_id INT,
+  crew_ssn INT
+);
+
+COPY sample_flight_crew_log
+FROM 'C:\projects\cs338-proj\dataset\sample_flight_crew_log.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_flight_crew_log
+ADD CONSTRAINT fk_crew_ssn 
+FOREIGN KEY (crew_ssn) 
+REFERENCES sample_flight_crew (ssn) 
+ON DELETE CASCADE;
+
+ALTER TABLE sample_flight_crew_log ADD PRIMARY KEY (flight_id, crew_ssn);

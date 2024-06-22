@@ -261,3 +261,34 @@ appdb-#     carrier_code;
  B6           | 8 |  1 |  0 |  1 |  1
  DL           | 4 |  0 |  0 |  0 |  0
 (3 rows)
+
+
+
+
+
+
+appdb=# -- After adding more tables with sample data
+appdb=# \dt
+                  List of relations
+ Schema |           Name           | Type  |  Owner
+--------+--------------------------+-------+----------
+ public | airline                  | table | postgres
+ public | flight                   | table | postgres
+ public | sample_aircraft          | table | postgres
+ public | sample_airline           | table | postgres
+ public | sample_airport           | table | postgres
+ public | sample_arrives_at        | table | postgres
+ public | sample_attendant         | table | postgres
+ public | sample_boarding_ticket   | table | postgres
+ public | sample_departs_from      | table | postgres
+ public | sample_flight            | table | postgres
+ public | sample_flight_crew       | table | postgres
+ public | sample_flight_crew_log   | table | postgres
+ public | sample_passenger         | table | postgres
+ public | sample_phonenumbers      | table | postgres
+ public | sample_pilot             | table | postgres
+ public | sample_user              | table | postgres
+ public | sample_weather_condition | table | postgres
+ public | users                    | table | postgres
+ public | weather_condition        | table | postgres
+(19 rows)
