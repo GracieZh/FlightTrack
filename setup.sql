@@ -278,3 +278,86 @@ FOREIGN KEY (flight_id)
 REFERENCES sample_flight (id) 
 ON DELETE CASCADE;
 
+-- Boarding_ticket
+CREATE TABLE sample_boarding_ticket (
+  ticket_number INT,
+  seat_no INT,
+  fair INT,
+  class VARCHAR(50),
+  flight_id INT
+);
+
+COPY sample_boarding_ticket
+FROM 'C:\projects\cs338-proj\dataset\sample_boarding_ticket.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+-- User
+CREATE TABLE sample_user (
+  ssn INT PRIMARY KEY,
+  fname VARCHAR(50),
+  lname VARCHAR(50),
+  bdate VARCHAR(11),
+  email VARCHAR(100),
+  address VARCHAR(100),
+  sex VARCHAR(50)
+);
+
+COPY sample_user
+FROM 'C:\projects\cs338-proj\dataset\sample_user.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+-- Phone numbers
+CREATE TABLE sample_phonenumbers (
+  ssn INT,
+  phone_number VARCHAR(13)
+);
+
+ALTER TABLE sample_phonenumbers ADD PRIMARY KEY (ssn, phone_number);
+
+COPY sample_phonenumbers
+FROM 'C:\projects\cs338-proj\dataset\sample_phonenumbers.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_phonenumbers
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+-- Passenger
+CREATE TABLE sample_passenger (
+  ssn INT,
+  ticket_no VARCHAR(13)
+);
+
+ALTER TABLE sample_passenger ADD PRIMARY KEY (ssn);
+
+COPY sample_passenger
+FROM 'C:\projects\cs338-proj\dataset\sample_passenger.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_passenger
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
+
+-- Flight_crew
+CREATE TABLE sample_flight_crew (
+  ssn INT PRIMARY KEY
+);
+
+COPY sample_flight_crew
+FROM 'C:\projects\cs338-proj\dataset\sample_flight_crew.csv' 
+DELIMITER ',' 
+CSV HEADER;
+
+ALTER TABLE sample_flight_crew
+ADD CONSTRAINT fk_ssn 
+FOREIGN KEY (ssn) 
+REFERENCES sample_user (ssn) 
+ON DELETE CASCADE;
