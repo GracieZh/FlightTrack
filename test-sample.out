@@ -1,0 +1,263 @@
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+
+psql (16.2)
+Type "help" for help.
+
+postgres=# \c appdb
+You are now connected to database "appdb" as user "postgres".
+appdb=# \dt
+                  List of relations
+ Schema |           Name           | Type  |  Owner
+--------+--------------------------+-------+----------
+ public | airline                  | table | postgres
+ public | flight                   | table | postgres
+ public | sample_aircraft          | table | postgres
+ public | sample_airline           | table | postgres
+ public | sample_airport           | table | postgres
+ public | sample_arrives_at        | table | postgres
+ public | sample_boarding_ticket   | table | postgres
+ public | sample_departs_from      | table | postgres
+ public | sample_flight            | table | postgres
+ public | sample_flight_crew       | table | postgres
+ public | sample_passenger         | table | postgres
+ public | sample_phonenumbers      | table | postgres
+ public | sample_user              | table | postgres
+ public | sample_weather_condition | table | postgres
+ public | users                    | table | postgres
+ public | weather_condition        | table | postgres
+(16 rows)
+
+
+appdb=# -- =========
+appdb=# -- Feature 1
+appdb=# -- =========
+appdb=#
+appdb=# -- Obtain the carriers for the user to select from
+appdb=# SELECT DISTINCT
+appdb-#     sample_flight.carrier_code AS airline_id,
+appdb-#     airline.name
+appdb-# FROM
+appdb-#     sample_flight
+appdb-# JOIN
+appdb-#     airline ON sample_flight.carrier_code = airline.airline_id
+appdb-# ORDER BY
+appdb-#     airline_id;
+ airline_id |       name
+------------+-------------------
+ AA         | American Airlines
+ B6         | JetBlue Airways
+ DL         | Delta Air Lines
+(3 rows)
+
+
+appdb=# -- Obtain the data for the user selected carriers to be shown in a table in the UI
+appdb=#
+appdb=# -- Going to hard code variables for the sake of testing
+appdb=# -- Postgres syntax for declaring variables
+appdb=# \set test_from_month 11
+appdb=# \set test_from_day 1
+appdb=# \set test_to_month 1
+appdb=# \set test_to_day 15
+appdb=#
+appdb=# SELECT
+appdb-#     month, day_of_month, carrier_code, airline.name, tail_num, arrival_airport_code, departure_delay
+appdb-# FROM
+appdb-#     sample_flight
+appdb-# JOIN
+appdb-#     airline ON sample_flight.carrier_code = airline.airline_id
+appdb-# WHERE
+appdb-# (
+appdb(#     CASE
+appdb(#         WHEN month > 10 THEN (month - 10) * 100 + day_of_month
+appdb(#         ELSE (month + 3) * 100 + day_of_month
+appdb(#     END
+appdb(# ) BETWEEN
+appdb-# (
+appdb(#     CASE
+appdb(#         WHEN :'test_from_month' > 10 THEN (:'test_from_month' - 10) * 100 + :'test_from_day'
+appdb(#         ELSE (:'test_from_month' + 3) * 100 + :'test_from_day'
+appdb(#     END
+appdb(# )
+appdb-# AND
+appdb-# (
+appdb(#     CASE
+appdb(#         WHEN :'test_to_month' > 10 THEN (:'test_to_month' - 10) * 100 + :'test_to_day'
+appdb(#         ELSE (:'test_to_month' + 3) * 100 + :'test_to_day'
+appdb(#     END
+appdb(# )
+appdb-# AND
+appdb-#     carrier_code IN ('B6','DL','AA')
+appdb-# ORDER BY
+appdb-#     departure_delay DESC
+appdb-# FETCH FIRST
+appdb-#     10 ROWS ONLY;
+ month | day_of_month | carrier_code |       name        | tail_num | arrival_airport_code | departure_delay
+-------+--------------+--------------+-------------------+----------+----------------------+-----------------
+    11 |            1 | B6           | JetBlue Airways   | N998JE   | SJU                  |             108
+    11 |            1 | B6           | JetBlue Airways   | N959JB   | FLL                  |              40
+    11 |            1 | B6           | JetBlue Airways   | N283JB   | FLL                  |               3
+    11 |            1 | B6           | JetBlue Airways   | N663JB   | LGB                  |               0
+    11 |            1 | B6           | JetBlue Airways   | N828JB   | CHS                  |              -1
+    11 |            1 | AA           | American Airlines | N983NN   | ORD                  |              -1
+    11 |            1 | AA           | American Airlines | N107NN   | LAX                  |              -1
+    11 |            1 | B6           | JetBlue Airways   | N638JB   | SAV                  |              -2
+    11 |            1 | B6           | JetBlue Airways   | N999JQ   | MCO                  |              -2
+    11 |            1 | AA           | American Airlines | N115NN   | SFO                  |              -3
+(10 rows)
+
+
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=# -- =========
+appdb=# -- Feature 2
+appdb=# -- =========
+appdb=#
+appdb=# WITH total_count AS (
+appdb(#     SELECT COUNT(*) AS total FROM sample_flight
+appdb(# )
+appdb-# SELECT
+appdb-#     carrier_code,
+appdb-#     COUNT(*) AS c,
+appdb-#     ROUND((COUNT(*) * 100.0 / (SELECT total FROM total_count)), 1) AS percentage
+appdb-# FROM
+appdb-#     sample_flight
+appdb-# GROUP BY
+appdb-#     carrier_code
+appdb-# ORDER BY
+appdb-#     c DESC;
+ carrier_code | c  | percentage
+--------------+----+------------
+ B6           | 11 |       55.0
+ AA           |  5 |       25.0
+ DL           |  4 |       20.0
+(3 rows)
+
+
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=# -- =========
+appdb=# -- Feature 3
+appdb=# -- =========
+appdb=#
+appdb=# WITH delay_stats AS (
+appdb(#     SELECT
+appdb(#         carrier_code,
+appdb(#         COUNT(*) AS total_flights,
+appdb(#         COUNT(CASE WHEN departure_delay > 0 THEN 1 END) AS num_of_delay,
+appdb(#         MIN(departure_delay) AS min_delay,
+appdb(#         MAX(departure_delay) AS max_delay,
+appdb(#         AVG(departure_delay) AS avg_delay
+appdb(#     FROM
+appdb(#         sample_flight
+appdb(#     GROUP BY
+appdb(#         carrier_code
+appdb(# )
+appdb-# SELECT
+appdb-#     carrier_code,
+appdb-#     total_flights,
+appdb-#     num_of_delay,
+appdb-#     ROUND(100.0 * num_of_delay / total_flights, 2) AS percent_of_delay,
+appdb-#     min_delay,
+appdb-#     max_delay,
+appdb-#     ROUND(avg_delay, 2) AS avg_delay
+appdb-# FROM
+appdb-#     delay_stats;
+ carrier_code | total_flights | num_of_delay | percent_of_delay | min_delay | max_delay | avg_delay
+--------------+---------------+--------------+------------------+-----------+-----------+-----------
+ AA           |             5 |            0 |             0.00 |        -5 |        -1 |     -2.80
+ B6           |            11 |            3 |            27.27 |        -7 |       108 |     11.45
+ DL           |             4 |            0 |             0.00 |        -6 |        -4 |     -5.00
+(3 rows)
+
+
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=#
+appdb=# -- =========
+appdb=# -- Feature 4
+appdb=# -- =========
+appdb=#
+appdb=# SELECT
+appdb-#     carrier_code,
+appdb-#     COUNT(CASE WHEN departure_delay <= 0 THEN 1 END) AS "0",
+appdb-#     COUNT(CASE WHEN departure_delay > 0 AND departure_delay <= 10 THEN 1 END) AS "10",
+appdb-#     COUNT(CASE WHEN departure_delay > 10 AND departure_delay <= 30 THEN 1 END) AS "30",
+appdb-#     COUNT(CASE WHEN departure_delay > 30 AND departure_delay <= 60 THEN 1 END) AS "60",
+appdb-#     COUNT(CASE WHEN departure_delay > 60 THEN 1 END) AS "61"
+appdb-# FROM
+appdb-#     sample_flight
+appdb-# WHERE
+appdb-#     carrier_code IN ('B6','DL','AA')
+appdb-# GROUP BY
+appdb-#     carrier_code
+appdb-# ORDER BY
+appdb-#     carrier_code;
+ carrier_code | 0 | 10 | 30 | 60 | 61
+--------------+---+----+----+----+----
+ AA           | 5 |  0 |  0 |  0 |  0
+ B6           | 8 |  1 |  0 |  1 |  1
+ DL           | 4 |  0 |  0 |  0 |  0
+(3 rows)
