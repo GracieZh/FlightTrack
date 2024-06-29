@@ -1,8 +1,10 @@
 
 from flask import Flask, render_template, send_file, request
-from stats_1 import stats_carriercode, stats_carrier_performance, stats_carrier_performance_compare
-from users_1 import user_list
 from flights_1 import flights_search
+from stats_1 import stats_carriercode
+from feature_3 import stats_carrier_performance
+from feature_4 import stats_carrier_performance_compare
+from users_1 import user_list
 
 app = Flask(__name__)
 
@@ -22,18 +24,21 @@ def get_png(filename):
 def home():
     return render_template('home.html')
 
+# Feature 2:
 @app.route('/stats/carriercode')
 def handle_stats_carriercode():
     return stats_carriercode()
 
+#Feature 3 and 4:  compare carrier performance for reliability.
 @app.route('/stats/carrierperformance')
 def handle_stats_carrier_performance():
     carrier_codes = request.args.getlist('c')   # Extract the list of values for the 'c' parameter 
     if len(carrier_codes) == 0:
-        return stats_carrier_performance()
+        return stats_carrier_performance() # Feature 3
     else:
-        return stats_carrier_performance_compare(carrier_codes)
+        return stats_carrier_performance_compare(carrier_codes) # Feature 4
 
+# Feature 1: display a graph of which flights cause the most delays based on selectable factors like airline carrier, time of day, etc.
 @app.route('/flights/search')
 def handle_flights_search():
     return flights_search()
