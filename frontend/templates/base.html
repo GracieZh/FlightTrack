@@ -11,36 +11,37 @@
         <a href="{{ url_for('home') }}">CS 338 DB Project App</a>
     </nav>
     <nav class="menu">
-        <a href="/">Home</a>
-        <a href="#" id="statsLink">Statistics</a>
-        <a href="#" id="flightsLink">Flights</a>
-        <a href="/">Feature 4</a>
-        <a href="/">Feature 5</a>
-        <a href="#" id="usersLink">Users</a>
+        <a href="/">Features:</a>
+        <a class="tooltip" href="{{ url_for('handle_flights_search') }}">Search Flights<span class="tooltiptext">Feature 1</span></a>
+        <a class="tooltip" href="{{ url_for('handle_stats_carriercode') }}">Carrier Distribution<span class="tooltiptext">Feature 2</span></a>
+        <a class="tooltip" href="{{ url_for('handle_stats_carrier_performance') }}">Carrier Performance<span class="tooltiptext">Feature 3</span></a>
+        <a class="tooltip" href="{{ url_for('handle_stats_carrier_performance') }}">Carrier Compare<span class="tooltiptext">Feature 4</span></a>
+        <a class="tooltip" href="">Feature 5<span class="tooltiptext">Feature 5</span></a>
+        <a class="tooltip" href="">Feature 6<span class="tooltiptext">Feature 6</span></a>
     </nav>
+    <nav class="menu">
+        <a href="/">Fancy Features:</a>
+        <a class="tooltip" href="/">Fancy Feature 1<span class="tooltiptext">Fancy feature 1</span></a>
+        <a class="tooltip" href="/">Fancy Feature 2<span class="tooltiptext">Fancy feature 2</span></a>
+        <a class="tooltip" href="/">Fancy Feature 3<span class="tooltiptext">Fancy feature 3</span></a>
+        <a class="tooltip" href="/">Fancy Feature 4<span class="tooltiptext">Fancy feature 4</span></a>
+        <a class="tooltip" href="/">Fancy Feature 5<span class="tooltiptext">Fancy feature 5</span></a>
+    </nav>
+
     <div id="stats">
         <nav class="menu">
-            <a href="{{ url_for('handle_stats_carriercode') }}">Carrier Code Distribution</a>
-            <a href="{{ url_for('handle_stats_carrier_performance') }}">Carrier Performance</a>
-            <a href="/">stats 3</a>
+            <a href="#" id="statsLink">Statistics</a>
+            <a href="#" id="flightsLink">Flights</a>
+            <a href="/">Feature 5</a>
+            <a href="#" id="usersLink">Users</a>
+
             <a href="/">stats 4</a>
             <a href="/">stats 5</a>
         </nav>
     </div>
-    <div id="flights">
-        <nav class="menu">
-            <a href="{{ url_for('handle_flights_search') }}">Search for flights</a>
-            <a href="/">flights 2</a>
-            <a href="/">flights 3</a>
-            <a href="/">flights 4</a>
-            <a href="/">flights 5</a>
-        </nav>
-    </div>
-
     <div id="users">
         <nav class="menu">
             <a href="{{ url_for('handle_user_list') }}">User list</a>
-            <a href="/">users 2</a>
             <a href="/">users 3</a>
             <a href="/">users 4</a>
             <a href="/">users 5</a>

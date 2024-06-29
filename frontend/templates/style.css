@@ -7,14 +7,14 @@
 nav a {
     color: #2ebea8;
     font-size: 3em;
-    margin-left: 50px;
+    margin-left: 15px;
     text-decoration: none;
 }
 
 .menu a {
     color: #2ebea8;
     font-size: 1em;
-    margin-left: 50px;
+    margin-left:15px;
     text-decoration: none;
 }
 
@@ -29,4 +29,32 @@ h1 {
 
 #stats, #users {
     display: none;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the text */
+    left: 50%;
+    margin-left: -100px;
+    font-size: 16px; /* Change the font size */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }
