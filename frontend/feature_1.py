@@ -14,7 +14,7 @@ def flights_search():
     from_day = request.args.get('fd')
     to_day = request.args.get('td')
 
-    # exampel: ?fm=11&fd=1&tm=12&td=31&c=9E&c=AA&c=AS&c=B6&c=DL
+    # example: ?fm=11&fd=1&tm=12&td=31&c=9E&c=AA&c=AS&c=B6&c=DL
 
     # query database
 
@@ -100,13 +100,4 @@ def flights_search():
 
 
     # Present data
-    return render_template('flights_search.html', carriers=carriers, flights=flights)
-
-
-def flights_search_by_person():
-
-    # query database
-    
-    flights = []
-    # Present data
-    return render_template('flights_search_by_person.html', rows=flights)
+    return render_template('f1_search.html', carriers=carriers, flights=flights)

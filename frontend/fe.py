@@ -1,9 +1,10 @@
 
 from flask import Flask, render_template, send_file, request
-from flights_1 import flights_search
-from stats_1 import stats_carriercode
+from feature_1 import flights_search
+from feature_2 import stats_carriercode
 from feature_3 import stats_carrier_performance
 from feature_4 import stats_carrier_performance_compare
+from feature_5 import flights_schedule
 from users_1 import user_list
 
 app = Flask(__name__)
@@ -43,6 +44,12 @@ def handle_stats_carrier_performance():
 def handle_flights_search():
     return flights_search()
 
+# Feature 5: 
+# users can explore flight schedules visually to see frequency and trends over time
+@app.route('/flights/schedule')
+def handle_flights_schedule():
+    return flights_schedule()
+
 @app.route('/user/list')
 def handle_user_list():
     return user_list()
@@ -51,7 +58,6 @@ def handle_user_list():
 def index(path):
     print("path:", path)
     return f"The path you entered is: {path}"
-
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

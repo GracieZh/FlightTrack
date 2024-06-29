@@ -1,3 +1,5 @@
 ./frontend/__pycache__/*
 ./frontend/images/stats_carriercode.png
 ./frontend/images/stats_carrierdelay.png
+./frontend/images/stats_carrier_performance_compare.png
+./frontend/images/flights_schedule.png
