@@ -5,6 +5,7 @@ from feature_2 import stats_carriercode
 from feature_3 import stats_carrier_performance
 from feature_4 import stats_carrier_performance_compare
 from feature_5 import flights_schedule
+from feature_6 import user_gen
 from users_1 import user_list
 
 app = Flask(__name__)
@@ -25,6 +26,11 @@ def get_png(filename):
 def home():
     return render_template('home.html')
 
+# Feature 1: display a graph of which flights cause the most delays based on selectable factors like airline carrier, time of day, etc.
+@app.route('/flights/search')
+def handle_flights_search():
+    return flights_search()
+
 # Feature 2:
 @app.route('/stats/carriercode')
 def handle_stats_carriercode():
@@ -39,16 +45,16 @@ def handle_stats_carrier_performance():
     else:
         return stats_carrier_performance_compare(carrier_codes) # Feature 4
 
-# Feature 1: display a graph of which flights cause the most delays based on selectable factors like airline carrier, time of day, etc.
-@app.route('/flights/search')
-def handle_flights_search():
-    return flights_search()
-
 # Feature 5: 
 # users can explore flight schedules visually to see frequency and trends over time
 @app.route('/flights/schedule')
 def handle_flights_schedule():
     return flights_schedule()
+
+# Feature 6: 
+@app.route('/user/gentickets')
+def handle_user_gen():
+    return user_gen()
 
 @app.route('/user/list')
 def handle_user_list():
