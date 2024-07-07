@@ -36,14 +36,15 @@ def handle_flights_search():
 def handle_stats_carriercode():
     return stats_carriercode()
 
-#Feature 3 and 4:  compare carrier performance for reliability.
+#Feature 3:  carrier performance
 @app.route('/stats/carrierperformance')
 def handle_stats_carrier_performance():
-    carrier_codes = request.args.getlist('c')   # Extract the list of values for the 'c' parameter 
-    if len(carrier_codes) == 0:
-        return stats_carrier_performance() # Feature 3
-    else:
-        return stats_carrier_performance_compare(carrier_codes) # Feature 4
+    return stats_carrier_performance()
+
+#Feature 4:  compare carrier performance
+@app.route('/stats/performancecompare')
+def handle_carrier_performance_compare():
+    return stats_carrier_performance_compare()
 
 # Feature 5: 
 # users can explore flight schedules visually to see frequency and trends over time

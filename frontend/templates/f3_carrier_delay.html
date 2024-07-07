@@ -17,7 +17,7 @@
                     </thead>
                     {% for row in rows %}
                     <tr>
-                        <td> {{ row['carrier_code'] }}</td>
+                        <td>{{ row['carrier_code'] }}</td>
                         <td>{{ row['total_flights'] }}</td>  
                         <td>{{ row['num_of_delay'] }}</td>  
                         <td>{{ row['percent_of_delay'] }}&percnt;</td>  
@@ -47,8 +47,8 @@
                     {% set y1 = 150 - row['log_mind'] * 10 %}
                     {% set y2 = 150 - row['log_maxd'] * 10 %}
                     {% set yc = 150 - row['log_avgd'] * 10 %}
-                    <line x1="{{x1}}" x2="{{x2}}" y1="{{y1}}" y2="{{y1}}" stroke="black" />  <!-- First horizontal line -->
-                    <line x1="{{x1}}" y1="{{y2}}" x2="{{x2}}" y2="{{y2}}" stroke="red" />  <!-- Second horizontal line -->
+                    <line x1="{{x1}}" x2="{{x2}}" y1="{{y1}}" y2="{{y1}}" stroke="black" />  <!-- Bottom horizontal line -->
+                    <line x1="{{x1}}" y1="{{y2}}" x2="{{x2}}" y2="{{y2}}" stroke="red" />  <!-- Top horizontal line -->
                     <line x1="{{xc}}" y1="{{y1}}" x2="{{xc}}" y2="{{y2}}" stroke="blue" />  <!-- Vertical line connecting centers -->
                     <circle cx="{{xc}}" cy="{{yc}}" r="5" fill="green" />  <!-- Circle in the middle of the vertical line -->
 
