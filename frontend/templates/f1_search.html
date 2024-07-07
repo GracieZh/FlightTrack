@@ -28,6 +28,7 @@
         <br/>
         {% endif %}
 
+        {% include 'performance.html' %}
         
         <table style="background-color:#FFFFE0;"><tr><td>
             <form action="?" method="get">
@@ -36,37 +37,14 @@
                     <tr><th colspan="2">Search for flights</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>From date</td><td>
-                        <select name="fm">
-                            <option value="12">December</option>
-                            <option value="11">November</option>
-                            <option value="1">January</option>
-                        </select>                        
-                        <select name="fd">
-                            {% for i in range(1,32) %}
-                            <option value="{{i}}">{{i}}</option>
-                            {% endfor %}
-                        </select>                        
-                    </td></tr>
-                    <tr><td>To date</td><td>
-                        <select name="tm">
-                            <option value="12">December</option>
-                            <option value="11">November</option>
-                            <option value="1" selected="selected">January</option>
-                        </select>                        
-                        <select name="td">
-                            {% for i in range(1,31) %}
-                            <option value="{{i}}">{{i}}</option>
-                            {% endfor %}
-                            <option value="31" selected="selected">31</option>
-                        </select>                        
-                    </td></tr>
+                    {% include 'select_fromto.html' %}
                     <tr><td>carrier</td><td>
                         {% for carrier in carriers %}
-                            <input type="checkbox" id="cid" name="c" value="{{carrier.id}}"> {{carrier.id}} - {{carrier.name}} <br/>
+                            <input type="checkbox" id="cid" name="c" value="{{carrier.id}}" {% if carrier.checked %} checked {% endif %} > {{carrier.id}} - {{carrier.name}} <br/>
                         {% endfor %}
                     </td></tr>
-                    <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Search"></td></tr>          
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Search"></td></tr>          
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Perfomance Tuning"></td></tr>
                 </tbody>
             </table>
             
