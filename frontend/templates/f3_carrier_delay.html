@@ -3,8 +3,8 @@
 {% block content %}
     <h1>{% block title %} Stats {% endblock %}</h1>
     <div class='stats'>
+        {% if rows|length > 0 %}
         <table style="background-color:#FFFFE0;"><tr><td>
-            <form action="?" method="get">
                 <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
                     <thead>
                         <td>Carrier Code</td>
@@ -17,7 +17,7 @@
                     </thead>
                     {% for row in rows %}
                     <tr>
-                        <td><input type="checkbox" id="cid" name="c" value="{{ row['carrier_code'] }}"> {{ row['carrier_code'] }}</td>
+                        <td> {{ row['carrier_code'] }}</td>
                         <td>{{ row['total_flights'] }}</td>  
                         <td>{{ row['num_of_delay'] }}</td>  
                         <td>{{ row['percent_of_delay'] }}&percnt;</td>  
@@ -27,8 +27,6 @@
                     </tr>
                     {% endfor %}
                 </table>
-                <input type="submit" value="Compare">
-            </form>
         </td><td>
             <svg width="550" height="350">
                 <!-- Y-axis -->
@@ -73,9 +71,29 @@
                     <text x="{{ loop.index * 50 + 60 }}" y="330" text-anchor="middle">{{ row['carrier_code'] }}</text>
                 {% endfor %}
 
-
             </svg>            
         </td>
         </tr></table>
+        <br/><br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+
+        <table style="background-color:#FFFFE0;"><tr><td>
+            <form action="?" method="get">
+                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                    <thead>
+                        <tr><th colspan="2">Select date range</th></tr>
+                    </thead>
+                    <tbody>
+                        {% include 'select_fromto.html' %}
+                        <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Submit"></td></tr>          
+                        <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Perfomance Tuning"></td></tr>
+
+                    </tbody>
+                </table>
+            </form>
+        </td></tr></table>
+
     </div>
 {% endblock %}
