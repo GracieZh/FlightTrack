@@ -107,19 +107,11 @@ def stats_carriercode():
                 })
 
             if action == "Perfomance Tuning":
-                performance = perfomance_tuning(conn, 100, query, ["No Index","With Index"],
-                    '''
-                    DROP INDEX IF EXISTS idx_flight_1;
-                    DROP INDEX IF EXISTS idx_flight_2;
-                    DROP INDEX IF EXISTS idx_flight_3;
-                    '''
-                    ,
-                    '''
-                    CREATE INDEX idx_flight_1 ON flight (carrier_code); 
-                    CREATE INDEX idx_flight_2 ON flight (day_of_month); 
-                    CREATE INDEX idx_flight_3 ON flight (month); 
-                    '''
-                    )
+                performance = perfomance_tuning(conn, 100, query, 
+                    ["max 1 parallel workers per gather","max 4 parallel workers per gather"],
+                    "SET max_parallel_workers_per_gather = 1",
+                    "SET max_parallel_workers_per_gather = 4"
+                )
 
         except Error as e:
             print("error:", e)
