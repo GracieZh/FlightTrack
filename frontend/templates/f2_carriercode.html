@@ -3,7 +3,8 @@
 {% block content %}
     <h1>{% block title %} Stats {% endblock %}</h1>
     <div class='stats'>
-        <table><tr><td>
+        {% if rows|length > 0 %}
+        <table style="background-color:#FFFFE0;"><tr><td>
             <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
                 <thead>
                     <td>Carrier Code</td>
@@ -21,5 +22,26 @@
         </td><td>
             <img src="/png/stats_carriercode.png" width="300" height="300" alt="Carrier code distribution">
         </td></tr></table>
+        <br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+
+        <table style="background-color:#FFFFE0;"><tr><td>
+            <form action="?" method="get">
+                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                    <thead>
+                        <tr><th colspan="2">Select date range</th></tr>
+                    </thead>
+                    <tbody>
+                        {% include 'select_fromto.html' %}
+                        <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Submit"></td></tr>          
+                        <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Perfomance Tuning"></td></tr>
+
+                    </tbody>
+                </table>
+            </form>
+        </td></tr></table>
+
     </div>
 {% endblock %}
