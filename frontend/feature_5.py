@@ -2,6 +2,7 @@ from flask import render_template, request
 from conn import get_conn
 from psycopg2 import Error
 import matplotlib.pyplot as plt
+from feature_2 import perfomance_tuning
 
 # Feature 5: 
 # users can explore flight schedules visually to see frequency and trends over time
@@ -139,7 +140,7 @@ def get_cities(conn, region):
     cur.close()
     return cities
 
-def get_flights(conn, region, city):
+def get_flights(conn, region, city, tuning):
     query = f"""
         WITH dest AS (
             SELECT 
@@ -179,8 +180,10 @@ def get_flights(conn, region, city):
     cur = conn.cursor()
     cur.execute(query)
     rows = cur.fetchall()
+    cur.close()
     # print("get_flights ===>",rows)
     flights = []
+    performance = []
     for row in rows:
         flights.append({
             "cid": row[0],
@@ -193,8 +196,27 @@ def get_flights(conn, region, city):
             "dst": row[7],
             "wday": row[8]
         })
-    cur.close()
-    return flights
+    if tuning:
+        performance = perfomance_tuning(conn, 10, query, 
+            ["No Index","With Index"],
+            '''
+                DROP INDEX IF EXISTS idx_airports_1; 
+                DROP INDEX IF EXISTS idx_airports_2; 
+                DROP INDEX IF EXISTS idx_airports_3; 
+                DROP INDEX IF EXISTS idx_country_1; 
+                DROP INDEX IF EXISTS idx_usstate_1; 
+            '''
+            ,
+            '''
+                CREATE INDEX idx_airports_1 ON airports (iso_region); 
+                CREATE INDEX idx_airports_2 ON airports (municipality); 
+                CREATE INDEX idx_airports_3 ON airports (iata_code); 
+                CREATE INDEX idx_country_1 ON country (a2); 
+                CREATE INDEX idx_usstate_1 ON usstate (code); 
+            '''
+            )
+
+    return flights, performance
 
 def get_flight_group(conn, region, city):
     query = f"""
@@ -268,6 +290,7 @@ def flights_schedule():
     region = request.args.get('region')
     city = request.args.get('city')
     tn = request.args.get('tn')
+    action = request.args.get('action')
     print("country:", country)
     print("region:", region)
 
@@ -277,6 +300,7 @@ def flights_schedule():
     flights = []    
     gflights = {}   # flight number group by day of week
     tflights = []  # flights with same tail_num
+    performance = []
 
     # query database
     try:
@@ -287,7 +311,7 @@ def flights_schedule():
         if region != None:
             cities = get_cities(conn, region)
         if city != None:
-            flights = get_flights(conn, region, city)
+            flights, performance = get_flights(conn, region, city, action=="tuning")
             gflights = get_flight_group(conn, region, city)
         if tn != None:
             tflights = get_flights_by_tail_num(conn, tn)
@@ -311,14 +335,5 @@ def flights_schedule():
         # plt.show()
         plt.savefig('images/flights_schedule.png')
 
-    return render_template('f5_flights_schedule.html', countries=countries, states=states, cities=cities, flights=flights, tflights=tflights, gflights=gflights)
+    return render_template('f5_flights_schedule.html', countries=countries, states=states, cities=cities, flights=flights, tflights=tflights, gflights=gflights, stats=performance)
 
-
-
-def flights_search_by_person():
-
-    # query database
-    
-    flights = []
-    # Present data
-    return render_template('flights_search_by_person.html', rows=flights)

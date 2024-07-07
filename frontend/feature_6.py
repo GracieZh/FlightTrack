@@ -241,6 +241,18 @@ def user_gen():
         try:
             conn = get_conn()
             cur = conn.cursor()
+            cur.execute("DROP TABLE IF EXISTS boarding_tickets;")
+            conn.commit() 
+            cur.execute("""
+                        CREATE TABLE IF NOT EXISTS boarding_tickets (
+                            ticket_id SERIAL PRIMARY KEY,
+                            flight_id INTEGER,
+                            seat_no INTEGER,
+                            fare DECIMAL(9,2),
+                            class TEXT
+                        );
+                    """)
+            conn.commit() 
             cur.execute("SELECT generate_tickets(%s,%s,%s,%s,%s);", (nf, ce, cp, cb, cf))
             rows = cur.fetchone()
             conn.commit()
