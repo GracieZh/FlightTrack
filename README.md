@@ -13,7 +13,15 @@ FlightTrack is a data analytics platform for JFK International Airport, tracking
 - Install PostgreSQL 
 - Install Python (the app was built with version 3.11.4)
 - Set up ssh on your laptop/pc (or download a zip)
-- Have the raw data csv files: `jfk_airport.csv` and `airlines_with_iata.csv`
+- Have the required raw data csv files
+
+### Install Python Packages
+```bash
+python.exe -m pip install --upgrade pip
+pip install flask
+pip install psycopg2
+pip install matplotlib
+```
 
 ### PSQL Setup and Backend Configs
 Make sure you have the correct database information in `frontend/conn.py`.
@@ -22,16 +30,29 @@ Make sure you have the correct database information in `frontend/conn.py`.
 Clone the repository
 
 ```bash
+C:
+mkdir C:/projects/cs338-proj/
+cd C:/projects/cs338-proj/
 git clone git@github.com:GracieZh/dbproj.git
-cd dbproj-master
+rename FlightTrack dbproj
+cd dbproj
 ```
 
-Make sure you are in the correct directory<br />
+Open a psql shell. Create a database called `appdb` by running:
 
-Set up your local Postgres database using the scripts from `setup.sql`
-Please update the path to the csv files based on where they are on your device
+```
+CREATE DATABASE appdb;
+\c appdb
+```
 
-Run the application script
+Set up your local Postgres database using the scripts from `setup.sql`. You can run it by using the following command in a psql shell:
+
+```
+\i C:/projects/cs338-proj/dbproj/setup.sql
+```
+Go back to your Windows Powershell or Command Prompt.
+
+Run the application script:
 ```
 cd frontend
 python fe.py
