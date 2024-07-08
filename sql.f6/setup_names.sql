@@ -1,3 +1,5 @@
+\echo '-------- set names for feature 6 --------';
+
 -- Drop the table streets
 DROP TABLE IF EXISTS streets;
 

@@ -1,3 +1,5 @@
+\echo '-------- assign tickets for feature 6 --------';
+
 CREATE OR REPLACE FUNCTION assign_tickets(pt INTEGER)
 RETURNS INTEGER AS $$
 DECLARE

@@ -1,3 +1,5 @@
+\echo '-------- create tables for feature 1 tuning --------';
+
 CREATE TABLE jfk_data (
   month INT,
   day_of_month INT,
@@ -25,7 +27,7 @@ CREATE TABLE jfk_data (
 );
 
 COPY jfk_data
-FROM 'C:\projects\cs338-proj\dataset\jfk_airport.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\jfk_airport.csv' 
 DELIMITER ',' 
 CSV HEADER;
 

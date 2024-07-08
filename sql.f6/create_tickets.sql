@@ -1,3 +1,5 @@
+\echo '-------- create tickets for feature 6 --------';
+
 -- Drop the tickets table if exists
 DROP TABLE IF EXISTS boarding_tickets;
 

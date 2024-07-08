@@ -1,3 +1,5 @@
+\echo '-------- assign crew for feature 6 --------';
+
 CREATE OR REPLACE FUNCTION assign_crew_to_flights(nf INTEGER, nu INTEGER)
 RETURNS INTEGER AS $$
 DECLARE

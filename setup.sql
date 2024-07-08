@@ -1,8 +1,39 @@
-CREATE DATABASE appdb;
+\set ON_ERROR_STOP on
+
+------------------------------------------------------
+-- if there is an error, after you fix it, run the following:
+--
+-- \c postgres
+-- drop database appdb;
+-- create database appdb;
+-- \c appdb;
+------------------------------------------------------
+
+-- Check if the current database is 'appdb'
+DO $$
+BEGIN
+    IF current_database() != 'appdb' THEN
+        RAISE EXCEPTION 'Current database is not appdb. Exiting...';
+    END IF;
+END $$;
+
+-- Check if the table 'flight' exists
+DO $$
+BEGIN
+    IF EXISTS (SELECT FROM information_schema.tables 
+               WHERE table_schema = 'public' AND table_name = 'flight') THEN
+        RAISE EXCEPTION 'Table flight already exists. Exiting...';
+    END IF;
+END $$;
+
+SET CLIENT_ENCODING TO 'utf8';
+
+\echo '-------- creating tables related to flights --------'
 
 -- Setting up table to import csv data from Kaggle dataset
 --   Kaggle data: https://www.kaggle.com/datasets/deepankurk/flight-take-off-data-jfk-airport
 
+DROP TABLE IF EXISTS jfk_data;
 CREATE TABLE jfk_data (
   month INT,
   day_of_month INT,
@@ -30,7 +61,7 @@ CREATE TABLE jfk_data (
 );
 
 COPY jfk_data
-FROM 'C:\projects\cs338-proj\dataset\jfk_airport.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\jfk_airport.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -107,7 +138,7 @@ CREATE TABLE airline (
 );
 
 COPY airline
-FROM 'C:\projects\cs338-proj\dataset\airlines_with_iata.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\airlines_with_iata.csv' 
 DELIMITER ',' 
 CSV HEADER
 ENCODING 'windows-1251';
@@ -125,6 +156,8 @@ ALTER TABLE airline ADD PRIMARY KEY (Airline_id);
 -- ===================================
 -- =========== SAMPLE DATA ===========
 -- ===================================
+
+\echo '-------- CREATING SAMPLE TABLES --------';
 
 -- Flight
 CREATE TABLE sample_flight (
@@ -195,7 +228,7 @@ CREATE TABLE sample_aircraft (
 );
 
 COPY sample_aircraft
-FROM 'C:\projects\cs338-proj\dataset\sample_aircraft.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_aircraft.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -209,7 +242,7 @@ CREATE TABLE sample_airport (
 );
 
 COPY sample_airport
-FROM 'C:\projects\cs338-proj\dataset\sample_airport.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_airport.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -218,37 +251,27 @@ CREATE TABLE sample_departs_from (
   flight_id INT PRIMARY KEY,
   airport_code VARCHAR(4),
   departure_time INT,
-  departure_delay INT
+  departure_delay INT,
+  FOREIGN KEY (flight_id) REFERENCES sample_flight(id) ON DELETE CASCADE
 );
 
 COPY sample_departs_from
-FROM 'C:\projects\cs338-proj\dataset\sample_departs_from.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_departs_from.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_departs_from
-ADD CONSTRAINT fk_flight_id 
-FOREIGN KEY (flight_id) 
-REFERENCES sample_flight (id) 
-ON DELETE CASCADE;
 
 -- Arrives_at
 CREATE TABLE sample_arrives_at (
   flight_id INT PRIMARY KEY,
   airport_code VARCHAR(4),
-  arrival_time INT
+  arrival_time INT,
+  FOREIGN KEY (flight_id) REFERENCES sample_flight(id) ON DELETE CASCADE
 );
 
 COPY sample_arrives_at
-FROM 'C:\projects\cs338-proj\dataset\sample_arrives_at.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_arrives_at.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_arrives_at
-ADD CONSTRAINT fk_flight_id 
-FOREIGN KEY (flight_id) 
-REFERENCES sample_flight (id) 
-ON DELETE CASCADE;
 
 -- Weather_condition
 CREATE TABLE sample_weather_condition (
@@ -260,7 +283,8 @@ CREATE TABLE sample_weather_condition (
   wind_speed INT,
   wind_gust INT,
   pressure float4,
-  condition VARCHAR(50)
+  condition VARCHAR(50),
+  FOREIGN KEY (flight_id) REFERENCES sample_flight(id) ON DELETE CASCADE
 );
 
 INSERT INTO sample_weather_condition(
@@ -272,11 +296,6 @@ SELECT id, temperature, dew_point, humidity, wind_dir,
 FROM weather_condition
 LIMIT 20;
 
-ALTER TABLE sample_weather_condition
-ADD CONSTRAINT fk_flight_id 
-FOREIGN KEY (flight_id) 
-REFERENCES sample_flight (id) 
-ON DELETE CASCADE;
 
 -- Boarding_ticket
 CREATE TABLE sample_boarding_ticket (
@@ -288,7 +307,7 @@ CREATE TABLE sample_boarding_ticket (
 );
 
 COPY sample_boarding_ticket
-FROM 'C:\projects\cs338-proj\dataset\sample_boarding_ticket.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_boarding_ticket.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
@@ -304,148 +323,135 @@ CREATE TABLE sample_user (
 );
 
 COPY sample_user
-FROM 'C:\projects\cs338-proj\dataset\sample_user.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_user.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
 -- Phone numbers
 CREATE TABLE sample_phonenumbers (
   ssn INT,
-  phone_number VARCHAR(13)
+  phone_number VARCHAR(13),
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 ALTER TABLE sample_phonenumbers ADD PRIMARY KEY (ssn, phone_number);
 
 COPY sample_phonenumbers
-FROM 'C:\projects\cs338-proj\dataset\sample_phonenumbers.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_phonenumbers.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_phonenumbers
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- Passenger
 CREATE TABLE sample_passenger (
-  ssn INT,
-  ticket_no VARCHAR(13)
+  ssn INT PRIMARY KEY,
+  ticket_no VARCHAR(13),
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
-ALTER TABLE sample_passenger ADD PRIMARY KEY (ssn);
-
 COPY sample_passenger
-FROM 'C:\projects\cs338-proj\dataset\sample_passenger.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_passenger.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_passenger
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- Flight_crew
 CREATE TABLE sample_flight_crew (
-  ssn INT PRIMARY KEY
+  ssn INT PRIMARY KEY,
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 COPY sample_flight_crew
-FROM 'C:\projects\cs338-proj\dataset\sample_flight_crew.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_flight_crew.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_flight_crew
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- Pilot
 CREATE TABLE sample_pilot (
   ssn INT PRIMARY KEY,
   flight_hours INT,
-  liscence_number INT
+  liscence_number BIGINT,
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 COPY sample_pilot
-FROM 'C:\projects\cs338-proj\dataset\sample_pilot.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_pilot.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_pilot
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 
 -- Attendant
 CREATE TABLE sample_attendant (
   ssn INT PRIMARY KEY,
-  plane_section INT,
-  supper_ssn INT
+  plane_section VARCHAR(7),
+  supper_ssn INT,
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 COPY sample_attendant
-FROM 'C:\projects\cs338-proj\dataset\sample_attendant.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_attendant.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_attendant
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- Captain
 CREATE TABLE sample_captain (
-  ssn INT PRIMARY KEY
+  ssn INT PRIMARY KEY,
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 COPY sample_captain
-FROM 'C:\projects\cs338-proj\dataset\sample_captain.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_captain.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_captain
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- First_officer
 CREATE TABLE sample_first_officer (
-  ssn INT PRIMARY KEY
+  ssn INT PRIMARY KEY,
+  FOREIGN KEY (ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE
 );
 
 COPY sample_first_officer
-FROM 'C:\projects\cs338-proj\dataset\sample_first_officer.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_first_officer.csv' 
 DELIMITER ',' 
 CSV HEADER;
-
-ALTER TABLE sample_first_officer
-ADD CONSTRAINT fk_ssn 
-FOREIGN KEY (ssn) 
-REFERENCES sample_user (ssn) 
-ON DELETE CASCADE;
 
 -- Flight_crew_log
 CREATE TABLE sample_flight_crew_log (
   flight_id INT,
-  crew_ssn INT
+  crew_ssn INT,
+  FOREIGN KEY (flight_id) REFERENCES sample_flight(id) ON DELETE CASCADE,
+  FOREIGN KEY (crew_ssn) REFERENCES sample_user(ssn) ON DELETE CASCADE,
+  PRIMARY KEY (flight_id, crew_ssn)
 );
 
 COPY sample_flight_crew_log
-FROM 'C:\projects\cs338-proj\dataset\sample_flight_crew_log.csv' 
+FROM 'C:\projects\cs338-proj\dbproj\datasets\sample_flight_crew_log.csv' 
 DELIMITER ',' 
 CSV HEADER;
 
-ALTER TABLE sample_flight_crew_log
-ADD CONSTRAINT fk_crew_ssn 
-FOREIGN KEY (crew_ssn) 
-REFERENCES sample_flight_crew (ssn) 
-ON DELETE CASCADE;
 
-ALTER TABLE sample_flight_crew_log ADD PRIMARY KEY (flight_id, crew_ssn);
+\echo '-------- Feature 1 --------';
+
+\i C:/projects/cs338-proj/dbproj/sql.f1/test_flight.sql
+
+\echo '-------- Feature 5 --------';
+
+\i C:/projects/cs338-proj/dbproj/sql.f5/country.sql
+
+\echo '-------- Feature 6 --------';
+
+\i C:/projects/cs338-proj/dbproj/sql.f6/setup_names.sql
+\i C:/projects/cs338-proj/dbproj/sql.f6/create_users.sql
+\i C:/projects/cs338-proj/dbproj/sql.f6/create_tickets.sql
+\i C:/projects/cs338-proj/dbproj/sql.f6/assign_crew.sql
+\i C:/projects/cs338-proj/dbproj/sql.f6/assign_tickets.sql
+
+\echo '-------- Done --------';
+-- Print all table information, indices, stored procedures, and stored functions
+
+\dt
+SELECT tablename, indexname, indexdef FROM pg_indexes WHERE schemaname = 'public' ORDER BY tablename, indexname;
+\df
+
+
+
+
+-- \i C:/projects/cs338-proj/dbproj/setup.sql

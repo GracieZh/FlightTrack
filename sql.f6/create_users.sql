@@ -1,3 +1,5 @@
+\echo '-------- create users for feature 6 --------';
+
 DROP TABLE IF EXISTS users_gen;
 CREATE TABLE users_gen (
     ssn INTEGER PRIMARY KEY,
