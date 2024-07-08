@@ -1,0 +1,19 @@
+Code,Name,City,Country,number_of_runways
+ATL,Hartsfield-Jackson Atlanta International Airport,Atlanta,USA,4
+BOS,Boston Logan International Airport,Boston,USA,5
+BUF,Buffalo Niagara International Airport,Buffalo,USA,7
+CHS,Charleston International Airport,Charleston,USA,3
+DCA,Ronald Reagan Washington National Airport,Arlington,USA,6
+FLL,Fort Lauderdale-Hollywood International Airport,Fort Lauderdale,USA,5
+JFK,John F. Kennedy International Airport,New York,USA,6
+LAS,Harry Reid International Airport,Paradise,USA,4
+LAX,Los Angeles International Airport,Los Angelas,USA,3
+LGB,Long Beach Airport,Long Beach,USA,4
+MCO,Orlando International Airport,Orlando,USA,5
+ORD,Chicago O'Hare International Airport,Chicago,USA,7
+PHX,Phoenix Sky Harbor International Airport,Phoenix,USA,4
+SAV,Savannah/Hilton Head International Airport,Savannah,USA,7
+SFO,San Francisco International Airport,San Francisco,USA,3
+SJU,Luis Munoz Marin International Airport,Carolina,USA,6
+SLC,Salt Lake City International Airport,Salt Lake City,USA,6
+YYZ,Pearson International Airport,Toronto,Canada,4
