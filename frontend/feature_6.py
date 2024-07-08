@@ -190,6 +190,20 @@ def generate_users_with_stored_procedure_and_trigger(number):
         # return jsonify({"error": f"Database error: {e}"}), 500
         return f"Error {e}"
     
+
+def table_exists(conn, table_name):
+    cur = conn.cursor()
+    cur.execute("""
+        SELECT EXISTS (
+            SELECT FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            AND table_name = %s
+        );
+        """, (table_name,))
+    exists = cur.fetchone()[0]
+    cur.close()
+    return exists
+
 def get_progress():
     return f'{{"done": {task["done"]}, "total": {task["total"]}, "status": "ok"}}'
 
@@ -205,7 +219,7 @@ def user_gen():
     action = request.args.get('action')
     number = request.args.get('nu', type=int) # gen user
     
-    result = {"users":[], "nusers":0, "gen_users":0, "tuning":[], "ticket_created":0, "crew_member_assigned":0, "tickets_assigned":0}
+    result = {"users":[], "nusers":0, "gen_users":0, "tuning":[], "ticket_created":0, "crew_member_assigned":0, "tickets_assigned":0, "message":[]}
 
     # query database
 
@@ -273,23 +287,26 @@ def user_gen():
     if nfc != None and nfc > 0 and ncm > 0:
         try:
             conn = get_conn()
-            cur = conn.cursor()
-            cur.execute("DROP TABLE IF EXISTS flight_crew_log;")
-            conn.commit() 
-            cur.execute("""
-                            CREATE TABLE IF NOT EXISTS flight_crew_log (
-                                tail_num VARCHAR(7),
-                                user_id INTEGER
-                            );
-                        """)
-            conn.commit() 
-            cur.execute("SELECT assign_crew_to_flights(%s,%s);", (nfc, ncm))
-            rows = cur.fetchone() # function returns number of inserted crew members
-            conn.commit()
-            cur.close()
+            if not table_exists(conn, 'users'):
+                result["message"]="Table 'users' not exists.<br>Please generate some users and rename the table 'users_gen' to 'users' first."
+            else:
+                cur = conn.cursor()
+                cur.execute("DROP TABLE IF EXISTS flight_crew_log;")
+                conn.commit() 
+                cur.execute("""
+                                CREATE TABLE IF NOT EXISTS flight_crew_log (
+                                    tail_num VARCHAR(7),
+                                    user_id INTEGER
+                                );
+                            """)
+                conn.commit() 
+                cur.execute("SELECT assign_crew_to_flights(%s,%s);", (nfc, ncm))
+                rows = cur.fetchone() # function returns number of inserted crew members
+                conn.commit()
+                cur.close()
+                print("assign crew ===>",rows)
+                result["crew_member_assigned"] = rows[0]
             conn.close()
-            print("assign crew ===>",rows)
-            result["crew_member_assigned"] = rows[0]
         except Error as e:
             print("error:", e)
             # return jsonify({"error": f"Database error: {e}"}), 500
@@ -302,23 +319,26 @@ def user_gen():
     if pt != None and pt > 0:
         try:
             conn = get_conn()
-            cur = conn.cursor()
-            cur.execute("DROP TABLE IF EXISTS passengers;")
-            conn.commit() 
-            cur.execute("""
-                            CREATE TABLE IF NOT EXISTS passengers (
-                                ticket_id INTEGER,
-                                user_id INTEGER
-                            );
-                        """)
-            conn.commit() 
-            cur.execute("SELECT assign_tickets(%s);", (pt,))
-            rows = cur.fetchone()
-            conn.commit()
-            cur.close()
+            if not table_exists(conn, 'users'):
+                result["message"]="Table 'users' not exists.<br>Please generate some users and rename the table 'users_gen' to 'users' first."
+            else:
+                cur = conn.cursor()
+                cur.execute("DROP TABLE IF EXISTS passengers;")
+                conn.commit() 
+                cur.execute("""
+                                CREATE TABLE IF NOT EXISTS passengers (
+                                    ticket_id INTEGER,
+                                    user_id INTEGER
+                                );
+                            """)
+                conn.commit() 
+                cur.execute("SELECT assign_tickets(%s);", (pt,))
+                rows = cur.fetchone()
+                conn.commit()
+                cur.close()
+                print("assign tickets ===>",rows)
+                result["tickets_assigned"] = rows[0]
             conn.close()
-            print("assign tickets ===>",rows)
-            result["tickets_assigned"] = rows[0]
         except Error as e:
             print("error:", e)
             # return jsonify({"error": f"Database error: {e}"}), 500

@@ -4,6 +4,15 @@
     <h1>{% block title %} Generate Data {% endblock %}</h1>
     <div class='stats'>
 
+        {% if result["message"]|length > 0 %}
+        <table style="background-color:purple;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
+                <H2 style="color: purple;">{{result["message"] | safe }}</H2>
+            </td></tr></table>
+        </td></tr></table>
+        <br/>
+        {% endif %}
+
         {% if result["gen_users"] > 0 %}
         <script>
             setTimeout(fetchData, 200)
@@ -108,8 +117,7 @@
                             </thead>
                             <tbody>
                                 <tr><td style="text-align: center;">
-                                    <input type="radio" name="nu" value="100" checked><label for="100">100</label>
-                                    <input type="radio" name="nu" value="1000" ><label for="1000">1 thousand</label>
+                                    <input type="radio" name="nu" value="1000" checked><label for="1000">1 thousand</label>
                                     <input type="radio" name="nu" value="10000" ><label for="10000">10 thousand</label><br/>
                                     <input type="radio" name="nu" value="1000000" ><label for="1000000">1 million</label>
                                     <input type="radio" name="nu" value="10000000" ><label for="10000000">10 million</label>
@@ -143,7 +151,7 @@
                     <form action="?" method="get">
                         <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
                             <tr><th colspan="2">Number of flights for generating tickets</th></tr>
-                            <tr><td>Number</td><td><input name="nf" value="3000"></td></tr>
+                            <tr><td>Number</td><td><input name="nf" value="500"></td></tr>
                             <tr><th colspan="2">Number of tickets for each flight</th></tr>
                             <tr><td>Economy class</td><td><input name="ce" value="10"></td></tr>
                             <tr><td>Premium Economy class</td><td><input name="cp" value="5"></td></tr>
@@ -178,7 +186,7 @@
                     <form action="?" method="get">
                         <table border="2" cellpadding="5" style="background-color:#FFFFE0;" width="100%">
                             <tr><th colspan="2">Number of flights for assigning crew</th></tr>
-                            <tr><td>Number</td><td><input name="nfc" value="3000"></td></tr>
+                            <tr><td>Number</td><td><input name="nfc" value="500"></td></tr>
                             <tr><th colspan="2">Number of crew members for each flight</th></tr>
                             <tr><td>Members</td><td><input name="ncm" value="3"></td></tr>
                             <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Assign"></td></tr>
@@ -209,7 +217,7 @@
                     <form action="?" method="get">
                         <table border="2" cellpadding="5" style="background-color:#FFFFE0;" width="100%">
                             <tr><th colspan="2">Percentage of tickets to be assigned</th></tr>
-                            <tr><td>Percentage</td><td><input name="pt" value="100">%</td></tr>
+                            <tr><td>Percentage</td><td><input name="pt" value="80">%</td></tr>
                             <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Assign"></td></tr>
                         </table>
                     </form>
