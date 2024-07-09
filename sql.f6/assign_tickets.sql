@@ -41,6 +41,8 @@ BEGIN
 
     -- Create a temporary table to store assigned passengers
     CREATE TEMP TABLE temp_passengers (ticket_id INTEGER, user_id INTEGER, flight_id INTEGER);
+    CREATE INDEX idx_temp_passengers_user_id ON temp_passengers (user_id);
+    CREATE INDEX idx_temp_passengers_flight_id ON temp_passengers (flight_id);    
 
     -- Loop through each ticket ID and assign a random user ID
     FOR idx IN 1..array_length(ticket_ids, 1) LOOP

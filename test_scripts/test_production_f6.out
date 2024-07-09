@@ -1,0 +1,156 @@
+ -------- test generate users ----------
+DROP SEQUENCE
+CREATE SEQUENCE
+DROP TABLE
+CREATE TABLE
+CREATE TRIGGER
+ count 
+-------
+     0
+(1 row)
+
+CALL
+ count 
+-------
+  1000
+(1 row)
+
+    ssn    |  fname  |    lname    |   bdate    |            email             |       address        | gender 
+-----------+---------+-------------+------------+------------------------------+----------------------+--------
+ 601111260 | Adeline | WISE        | 1996-02-03 | Adeline.WISE@cs338.uw        | 749  Timpany Blvd    | F
+ 618111360 | William | NORTON      | 1998-12-21 | William.NORTON@cs338.uw      | 587  Jungle Road     | M
+ 447111558 | Eloise  | HUBBARD     | 1989-03-12 | Eloise.HUBBARD@cs338.uw      | 775  Dundas Street   | F
+ 362111409 | Nyra    | MAYNARD     | 1984-02-12 | Nyra.MAYNARD@cs338.uw        | 278  Brockton Avenue | F
+ 528111108 | Hendrix | BLANKENSHIP | 1963-07-07 | Hendrix.BLANKENSHIP@cs338.uw | 382  Yonge Street    | M
+ 590111712 | Lottie  | BLANCHARD   | 1969-03-29 | Lottie.BLANCHARD@cs338.uw    | 520  Washington St   | F
+ 174111570 | Nyla    | CONTRERAS   | 1961-07-11 | Nyla.CONTRERAS@cs338.uw      | 975  Main Street     | F
+ 490111263 | Kaden   | SPEARS      | 1984-01-01 | Kaden.SPEARS@cs338.uw        | 727  King Street     | M
+ 436111290 | Laura   | VO          | 1966-08-26 | Laura.VO@cs338.uw            | 621  State Road      | F
+ 865111590 | Ledger  | ATKINS      | 1979-07-22 | Ledger.ATKINS@cs338.uw       | 17  Washington St    | M
+(10 rows)
+
+ -------- test generate tickets ----------
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+ count 
+-------
+     0
+(1 row)
+
+ generate_tickets 
+------------------
+             2000
+(1 row)
+
+ count 
+-------
+  2000
+(1 row)
+
+ ticket_id | flight_id | seat_no |  fare  |      class      
+-----------+-----------+---------+--------+-----------------
+       877 |        44 |       4 | 140.85 | business
+      1417 |        71 |       4 | 225.91 | business
+      1329 |        67 |      19 |  64.60 | economy
+      1137 |        57 |       4 | 287.11 | business
+       186 |        10 |      16 |  99.67 | economy
+      1247 |        63 |      17 | 243.20 | economy
+       917 |        46 |       4 | 183.95 | business
+       935 |        47 |      10 |  59.79 | premium economy
+      1009 |        51 |      19 | 251.84 | economy
+      1439 |        72 |       1 | 612.50 | first class
+(10 rows)
+
+ -------- test assign crew to flight ----------
+CREATE TABLE
+ count 
+-------
+     0
+(1 row)
+
+ assign_crew_to_flights 
+------------------------
+                    297
+(1 row)
+
+ count 
+-------
+   297
+(1 row)
+
+ tail_num |  user_id  
+----------+-----------
+ N703TW   | 645113556
+ N249JB   | 132453207
+ N322US   | 165555531
+ N115NN   | 160167186
+ N923XJ   | 652198392
+ N2002J   | 637343766
+ N900DU   | 657140760
+ N623JB   | 141127101
+ N912XJ   | 113162310
+ N353NB   | 101883294
+(10 rows)
+
+ -------- test assign tickets to passengers ----------
+CREATE TABLE
+ count 
+-------
+     0
+(1 row)
+
+ assign_tickets 
+----------------
+           1800
+(1 row)
+
+ count 
+-------
+  1800
+(1 row)
+
+ ticket_id |  user_id  
+-----------+-----------
+       209 | 618028884
+      1961 | 153950319
+       227 | 135961533
+      1994 | 192787398
+      1986 | 179561979
+      1372 | 686674638
+       244 | 174496401
+      1593 | 129951981
+      1155 | 140394177
+       809 | 631676295
+(10 rows)
+
+ -------- performance turning assign tickets to passengers ----------
+CREATE FUNCTION
+CREATE EXTENSION
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+DO
+DO
+ total_time | calls | avg_time | min_time | max_time |                     query                      
+------------+-------+----------+----------+----------+------------------------------------------------
+   1231.431 |     1 | 1231.431 | 1231.431 | 1231.431 | DO $$\r                                       +
+            |       |          |          |          | BEGIN\r                                       +
+            |       |          |          |          |     FOR i IN 1..10 LOOP\r                     +
+            |       |          |          |          |         DELETE FROM passengers; \r            +
+            |       |          |          |          |         PERFORM assign_tickets(90);\r         +
+            |       |          |          |          |     END LOOP;\r                               +
+            |       |          |          |          | END $$
+   3634.083 |     1 | 3634.083 | 3634.083 | 3634.083 | DO $$\r                                       +
+            |       |          |          |          | BEGIN\r                                       +
+            |       |          |          |          |     FOR i IN 1..10 LOOP\r                     +
+            |       |          |          |          |         DELETE FROM passengers; \r            +
+            |       |          |          |          |         PERFORM assign_tickets_no_index(90);\r+
+            |       |          |          |          |     END LOOP;\r                               +
+            |       |          |          |          | END $$
+(2 rows)
+
+DROP EXTENSION

@@ -296,7 +296,9 @@ def user_gen():
                 cur.execute("""
                                 CREATE TABLE IF NOT EXISTS flight_crew_log (
                                     tail_num VARCHAR(7),
-                                    user_id INTEGER
+                                    user_id INTEGER,
+                                    FOREIGN KEY (user_id) REFERENCES users(ssn) ON DELETE CASCADE,
+                                    PRIMARY KEY (tail_num, user_id)
                                 );
                             """)
                 conn.commit() 
@@ -327,8 +329,10 @@ def user_gen():
                 conn.commit() 
                 cur.execute("""
                                 CREATE TABLE IF NOT EXISTS passengers (
-                                    ticket_id INTEGER,
-                                    user_id INTEGER
+                                    ticket_id INTEGER PRIMARY KEY,
+                                    user_id INTEGER,
+                                    FOREIGN KEY (user_id) REFERENCES users(ssn) ON DELETE CASCADE,
+                                    FOREIGN KEY (ticket_id) REFERENCES boarding_tickets(ticket_id) ON DELETE CASCADE
                                 );
                             """)
                 conn.commit() 

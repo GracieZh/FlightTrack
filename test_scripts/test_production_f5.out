@@ -1,0 +1,328 @@
+ cid |          cname           | region | sid |        state         
+-----+--------------------------+--------+-----+----------------------
+ US  | United States of America | US-AZ  | AZ  | Arizona
+ US  | United States of America | US-CA  | CA  | California
+ US  | United States of America | US-CO  | CO  | Colorado
+ US  | United States of America | US-DC  | DC  | District of Columbia
+ US  | United States of America | US-FL  | FL  | Florida
+ US  | United States of America | US-GA  | GA  | Georgia
+ US  | United States of America | US-HI  | HI  | Hawaii
+ US  | United States of America | US-IL  | IL  | Illinois
+ US  | United States of America | US-IN  | IN  | Indiana
+ US  | United States of America | US-KY  | KY  | Kentucky
+ US  | United States of America | US-LA  | LA  | Louisiana
+ US  | United States of America | US-MA  | MA  | Massachusetts
+ US  | United States of America | US-MD  | MD  | Maryland
+ US  | United States of America | US-ME  | ME  | Maine
+ US  | United States of America | US-MI  | MI  | Michigan
+ US  | United States of America | US-MN  | MN  | Minnesota
+ US  | United States of America | US-NC  | NC  | North Carolina
+ US  | United States of America | US-NM  | NM  | New Mexico
+ US  | United States of America | US-NV  | NV  | Nevada
+ US  | United States of America | US-NY  | NY  | New York
+ US  | United States of America | US-OH  | OH  | Ohio
+ US  | United States of America | US-OR  | OR  | Oregon
+ US  | United States of America | US-PA  | PA  | Pennsylvania
+ US  | United States of America | US-SC  | SC  | South Carolina
+ US  | United States of America | US-TN  | TN  | Tennessee
+ US  | United States of America | US-TX  | TX  | Texas
+ US  | United States of America | US-UT  | UT  | Utah
+ US  | United States of America | US-VA  | VA  | Virginia
+ US  | United States of America | US-VT  | VT  | Vermont
+ US  | United States of America | US-WA  | WA  | Washington
+ US  | United States of America | US-WY  | WY  | Wyoming
+(31 rows)
+
+ cid |          cname           | region | sid |   state    |     city      
+-----+--------------------------+--------+-----+------------+---------------
+ US  | United States of America | US-CA  | CA  | California | Burbank
+ US  | United States of America | US-CA  | CA  | California | Long Beach
+ US  | United States of America | US-CA  | CA  | California | Los Angeles
+ US  | United States of America | US-CA  | CA  | California | Oakland
+ US  | United States of America | US-CA  | CA  | California | Ontario
+ US  | United States of America | US-CA  | CA  | California | Palm Springs
+ US  | United States of America | US-CA  | CA  | California | Sacramento
+ US  | United States of America | US-CA  | CA  | California | San Diego
+ US  | United States of America | US-CA  | CA  | California | San Francisco
+ US  | United States of America | US-CA  | CA  | California | San Jose
+(10 rows)
+
+ cid |          cname           | region | sid |   state    |  city   | tail_num | dst | day_of_week 
+-----+--------------------------+--------+-----+------------+---------+----------+-----+-------------
+ US  | United States of America | US-CA  | CA  | California | Ontario | N999JQ   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N998JE   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N995JL   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N995JL   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N974JT   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N971JT   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N966JT   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N966JT   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N954JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N952JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N949JT   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N949JT   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N907JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N907JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N794JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N793JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N789JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N784JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N784JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N746JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N712JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N703JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N663JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N662JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N662JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N662JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N659JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N659JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N658JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N658JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N657JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N655JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N645JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N639JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N639JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N638JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N638JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N633JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N633JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N625JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N624JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N623JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N618JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N613JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N603JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N597JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N597JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N592JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N588JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N587JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N587JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N586JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N584JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N569JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N562JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N559JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N559JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N535JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N535JB   | ONT |           3
+ US  | United States of America | US-CA  | CA  | California | Ontario | N526JL   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N524JB   | ONT |           7
+ US  | United States of America | US-CA  | CA  | California | Ontario | N523JB   | ONT |           5
+ US  | United States of America | US-CA  | CA  | California | Ontario | N523JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N521JB   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N521JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N519JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N509JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N509JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N508JL   | ONT |           6
+ US  | United States of America | US-CA  | CA  | California | Ontario | N508JL   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N505JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N503JB   | ONT |           4
+ US  | United States of America | US-CA  | CA  | California | Ontario | N503JB   | ONT |           2
+ US  | United States of America | US-CA  | CA  | California | Ontario | N503JB   | ONT |           1
+ US  | United States of America | US-CA  | CA  | California | Ontario | N2017J   | ONT |           3
+(75 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ tail_num | dst |                       aname                       |        city        | month | day_of_month | day_of_week 
+----------+-----+---------------------------------------------------+--------------------+-------+--------------+-------------
+ N603JB   | AUS | Austin Bergstrom International Airport            | Austin             |    11 |            5 |           2
+ N603JB   | ONT | Ontario International Airport                     | Ontario            |    11 |            5 |           2
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    11 |            6 |           3
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    11 |            7 |           4
+ N603JB   | ATL | Hartsfield Jackson Atlanta International Airport  | Atlanta            |    11 |            8 |           5
+ N603JB   | RSW | Southwest Florida International Airport           | Fort Myers         |    11 |            9 |           6
+ N603JB   | TPA | Tampa International Airport                       | Tampa              |    11 |            9 |           6
+ N603JB   | SJU | Luis Munoz Marin International Airport            | San Juan           |    11 |           11 |           1
+ N603JB   | SAV | Savannah Hilton Head International Airport        | Savannah           |    11 |           12 |           2
+ N603JB   | FLL | Fort Lauderdale Hollywood International Airport   | Fort Lauderdale    |    11 |           12 |           2
+ N603JB   | ATL | Hartsfield Jackson Atlanta International Airport  | Atlanta            |    11 |           13 |           3
+ N603JB   | MSY | Louis Armstrong New Orleans International Airport | New Orleans        |    11 |           13 |           3
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    11 |           14 |           4
+ N603JB   | ABQ | Albuquerque International Sunport                 | Albuquerque        |    11 |           14 |           4
+ N603JB   | JAX | Jacksonville International Airport                | Jacksonville       |    11 |           15 |           5
+ N603JB   | TPA | Tampa International Airport                       | Tampa              |    11 |           15 |           5
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    11 |           16 |           6
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    11 |           16 |           6
+ N603JB   | PSE | Mercedita Airport                                 | Ponce              |    11 |           17 |           7
+ N603JB   | CHS | Charleston International Airport                  | Charleston         |    11 |           19 |           2
+ N603JB   | MCO | Orlando International Airport                     | Orlando            |    11 |           19 |           2
+ N603JB   | SRQ | Sarasota Bradenton International Airport          | Sarasota/Bradenton |    11 |           20 |           3
+ N603JB   | RSW | Southwest Florida International Airport           | Fort Myers         |    11 |           20 |           3
+ N603JB   | RSW | Southwest Florida International Airport           | Fort Myers         |    11 |           21 |           4
+ N603JB   | SAV | Savannah Hilton Head International Airport        | Savannah           |    11 |           22 |           5
+ N603JB   | MSY | Louis Armstrong New Orleans International Airport | New Orleans        |    11 |           23 |           6
+ N603JB   | CHS | Charleston International Airport                  | Charleston         |    11 |           23 |           6
+ N603JB   | SAV | Savannah Hilton Head International Airport        | Savannah           |    11 |           25 |           1
+ N603JB   | SJU | Luis Munoz Marin International Airport            | San Juan           |    11 |           27 |           3
+ N603JB   | FLL | Fort Lauderdale Hollywood International Airport   | Fort Lauderdale    |    11 |           28 |           4
+ N603JB   | CHS | Charleston International Airport                  | Charleston         |    11 |           29 |           5
+ N603JB   | MSY | Louis Armstrong New Orleans International Airport | New Orleans        |    11 |           30 |           6
+ N603JB   | TPA | Tampa International Airport                       | Tampa              |    11 |           30 |           6
+ N603JB   | SJU | Luis Munoz Marin International Airport            | San Juan           |    12 |           16 |           1
+ N603JB   | RNO | Reno Tahoe International Airport                  | Reno               |    12 |           17 |           2
+ N603JB   | CHS | Charleston International Airport                  | Charleston         |    12 |           18 |           3
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    12 |           19 |           4
+ N603JB   | TPA | Tampa International Airport                       | Tampa              |    12 |           22 |           7
+ N603JB   | AUS | Austin Bergstrom International Airport            | Austin             |    12 |           24 |           2
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    12 |           24 |           2
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |    12 |           26 |           4
+ N603JB   | RSW | Southwest Florida International Airport           | Fort Myers         |    12 |           27 |           5
+ N603JB   | JAX | Jacksonville International Airport                | Jacksonville       |    12 |           27 |           5
+ N603JB   | MCO | Orlando International Airport                     | Orlando            |     1 |            5 |           7
+ N603JB   | PBI | Palm Beach International Airport                  | West Palm Beach    |     1 |           16 |           4
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |     1 |           16 |           4
+ N603JB   | JAX | Jacksonville International Airport                | Jacksonville       |     1 |           17 |           5
+ N603JB   | MCO | Orlando International Airport                     | Orlando            |     1 |           17 |           5
+ N603JB   | SRQ | Sarasota Bradenton International Airport          | Sarasota/Bradenton |     1 |           20 |           1
+ N603JB   | TPA | Tampa International Airport                       | Tampa              |     1 |           20 |           1
+ N603JB   | PSE | Mercedita Airport                                 | Ponce              |     1 |           20 |           1
+ N603JB   | JAX | Jacksonville International Airport                | Jacksonville       |     1 |           22 |           3
+ N603JB   | PBI | Palm Beach International Airport                  | West Palm Beach    |     1 |           23 |           4
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |     1 |           23 |           4
+ N603JB   | MCO | Orlando International Airport                     | Orlando            |     1 |           27 |           1
+ N603JB   | PBI | Palm Beach International Airport                  | West Palm Beach    |     1 |           28 |           2
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |     1 |           28 |           2
+ N603JB   | CHS | Charleston International Airport                  | Charleston         |     1 |           29 |           3
+ N603JB   | ATL | Hartsfield Jackson Atlanta International Airport  | Atlanta            |     1 |           29 |           3
+ N603JB   | SJU | Luis Munoz Marin International Airport            | San Juan           |     1 |           30 |           4
+ N603JB   | OAK | Metropolitan Oakland International Airport        | Oakland            |     1 |           30 |           4
+ N603JB   | SLC | Salt Lake City International Airport              | Salt Lake City     |     1 |           31 |           5
+(62 rows)
+
+ -------- performance tuning --------
+CREATE EXTENSION
+DROP INDEX
+DROP INDEX
+DROP INDEX
+DROP INDEX
+DROP INDEX
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ -------- performance without index --------
+ total_time | calls | avg_time | min_time | max_time 
+------------+-------+----------+----------+----------
+    191.602 |     4 |   47.901 |   21.347 |  119.011
+(1 row)
+
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+ pg_stat_statements_reset 
+--------------------------
+ 
+(1 row)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ dw | c  
+----+----
+  1 | 11
+  2 | 10
+  3 | 10
+  4 | 12
+  5 | 14
+  6 | 10
+  7 | 12
+(7 rows)
+
+ -------- performance with index --------
+ total_time | calls | avg_time | min_time | max_time 
+------------+-------+----------+----------+----------
+     24.647 |     4 |    6.162 |    5.579 |    7.108
+(1 row)
+
+DROP EXTENSION
