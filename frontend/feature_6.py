@@ -255,6 +255,9 @@ def user_gen():
         try:
             conn = get_conn()
             cur = conn.cursor()
+            # need to drop 'passengers' before 'boarding_tickets' due to ticket_id foreign key in 'passengers'
+            cur.execute("DROP TABLE IF EXISTS passengers;")
+            conn.commit() 
             cur.execute("DROP TABLE IF EXISTS boarding_tickets;")
             conn.commit() 
             cur.execute("""
