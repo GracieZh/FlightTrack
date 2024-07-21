@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('home') }}">CS 338 DB Project App</a>
+    <nav class="header">
+        <a href="{{ url_for('home') }}">FlightTrack</a>
     </nav>
     <nav class="menu">
-        <a href="/">Features:</a>
+        <a>Features:</a>
         <a class="tooltip" href="{{ url_for('handle_flights_search') }}">Search Flights<span class="tooltiptext">Feature 1</span></a>
         <a class="tooltip" href="{{ url_for('handle_stats_carriercode') }}">Carrier Distribution<span class="tooltiptext">Feature 2</span></a>
         <a class="tooltip" href="{{ url_for('handle_stats_carrier_performance') }}">Carrier Performance<span class="tooltiptext">Feature 3</span></a>
@@ -20,12 +20,12 @@
         <a class="tooltip" href="{{ url_for('handle_user_gen') }}">Generate tables<span class="tooltiptext">Feature 6</span></a>
     </nav>
     <nav class="menu">
-        <a href="/">Fancy Features:</a>
-        <a class="tooltip" href="/">Fancy Feature 1<span class="tooltiptext">Fancy feature 1</span></a>
-        <a class="tooltip" href="/">Fancy Feature 2<span class="tooltiptext">Fancy feature 2</span></a>
-        <a class="tooltip" href="/">Fancy Feature 3<span class="tooltiptext">Fancy feature 3</span></a>
-        <a class="tooltip" href="/">Fancy Feature 4<span class="tooltiptext">Fancy feature 4</span></a>
-        <a class="tooltip" href="/">Fancy Feature 5<span class="tooltiptext">Fancy feature 5</span></a>
+        <a>Fancy Features:</a>
+        <a class="tooltip" href="{{ url_for('handle_advanced_search') }}">Passenger Travel Stats<span class="tooltiptext">Fancy Feature 1</span></a>
+        <a class="tooltip" href="{{ url_for('handle_advanced_search_2') }}">Fly Together Stats<span class="tooltiptext">Fancy Feature 2</span></a>
+        <a class="tooltip" href="{{ url_for('handle_advanced_search_3') }}">Passenger Travel History<span class="tooltiptext">Fancy Feature 3</span></a>
+        <a class="tooltip" href="{{ url_for('handle_advanced_search_4') }}">Crew Info<span class="tooltiptext">Fancy Feature 4</span></a>
+        <a class="tooltip" href="{{ url_for('handle_stats_taxiout') }}">Delay and Weather Condition<span class="tooltiptext">Fancy feature 5</span></a>
     </nav>
 
     <div id="stats">

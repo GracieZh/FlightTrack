@@ -6,6 +6,11 @@ from feature_3 import stats_carrier_performance
 from feature_4 import stats_carrier_performance_compare
 from feature_5 import flights_schedule
 from feature_6 import user_gen
+from feature_ff1 import advanced_search
+from feature_ff2 import advanced_search_2
+from feature_ff3 import advanced_search_3
+from feature_ff4 import advanced_search_4
+from feature_ff5 import stats_taxiout
 from users_1 import user_list
 
 app = Flask(__name__)
@@ -57,6 +62,34 @@ def handle_flights_schedule():
 def handle_user_gen():
     return user_gen()
 
+#################################################
+
+# Fancy Feature 1:
+@app.route('/advanced/search')
+def handle_advanced_search():
+    return advanced_search()
+
+# Fancy Feature 2:
+@app.route('/advanced/search2')
+def handle_advanced_search_2():
+    return advanced_search_2()
+
+# Fancy Feature 3:
+@app.route('/advanced/search3')
+def handle_advanced_search_3():
+    return advanced_search_3()
+
+# Fancy Feature 4:
+@app.route('/advanced/search4')
+def handle_advanced_search_4():
+    return advanced_search_4()
+
+# Fancy Feature 5:
+@app.route('/stats/taxiout')
+def handle_stats_taxiout():
+    return stats_taxiout()
+
+#################################################
 @app.route('/user/list')
 def handle_user_list():
     return user_list()

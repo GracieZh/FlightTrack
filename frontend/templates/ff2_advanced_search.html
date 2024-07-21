@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Fancy Feature 2: Fly Together Stats {% endblock %}</h1>
+    <div class='stats'>
+        {% if results|length >0 %}
+            {% for rows in results %}
+                {% if rows|length > 0 %}
+                <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                    <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                        {% set n = (rows[0]|length - 2) // 2 %}
+                        <caption><H2>Common Flights Between {{n}} Passengers</H2></caption>
+                        <thead>
+                            <tr style="text-align: center;background-color: lightgreen;" >
+                                {% for i in range(n) %}
+                                <td>SSN</td>
+                                <td >Name</td>
+                                {% endfor %}
+                                <td colspan="2">Flights</td>
+                            </thead>
+                        <tbody>
+                            {% for row in rows %}<tr>
+                                {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                </td></tr>
+                </table>
+                <br/>
+                {% endif %}
+            {% endfor %}
+        <br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+        
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <form action="?" method="get">
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <thead>
+                    <tr><th colspan="2">View Stats</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Fly Together Stats"></td></tr>          
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Performance Tuning"></td></tr>
+                </tbody>
+            </table>
+            
+            </form>
+        </td><td>
+        </td>
+        </tr></table>
+    </div>
+{% endblock %}

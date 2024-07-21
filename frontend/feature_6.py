@@ -258,7 +258,8 @@ def user_gen():
             # need to drop 'passengers' before 'boarding_tickets' due to ticket_id foreign key in 'passengers'
             cur.execute("DROP TABLE IF EXISTS passengers;")
             conn.commit() 
-            cur.execute("DROP TABLE IF EXISTS boarding_tickets;")
+
+            cur.execute("DROP TABLE IF EXISTS boarding_tickets CASCADE;")
             conn.commit() 
             cur.execute("""
                         CREATE TABLE IF NOT EXISTS boarding_tickets (
@@ -285,9 +286,14 @@ def user_gen():
     # assign crew to flight 
     # ?nfc=10&ncm=10
     nfc = request.args.get('nfc', type=int) # Number of flights for assigning crew
-    ncm = request.args.get('ncm', type=int) # Number of crew members for each flight
+    #ncm = request.args.get('ncm', type=int) # Number of crew members for each flight
+    ncc = request.args.get('ncc', type=int) # Number of Captain for each flight
+    ncf = request.args.get('ncf', type=int) # Number of First officer for each flight
+    ncp = request.args.get('ncp', type=int) # Number of other Pilots for each flight
+    nca = request.args.get('nca', type=int) # Number of attendants for each flight
 
-    if nfc != None and nfc > 0 and ncm > 0:
+
+    if nfc != None and nfc > 0 and ncc+ncf+ncp+nca > 0:
         try:
             conn = get_conn()
             if not table_exists(conn, 'users'):
@@ -295,6 +301,10 @@ def user_gen():
             else:
                 cur = conn.cursor()
                 cur.execute("DROP TABLE IF EXISTS flight_crew_log;")
+                cur.execute("DROP TABLE IF EXISTS pilot;")
+                cur.execute("DROP TABLE IF EXISTS attendant;")
+                cur.execute("DROP TABLE IF EXISTS captain;")
+                cur.execute("DROP TABLE IF EXISTS first_officer;")
                 conn.commit() 
                 cur.execute("""
                                 CREATE TABLE IF NOT EXISTS flight_crew_log (
@@ -303,9 +313,34 @@ def user_gen():
                                     FOREIGN KEY (user_id) REFERENCES users(ssn) ON DELETE CASCADE,
                                     PRIMARY KEY (tail_num, user_id)
                                 );
+
+                                CREATE TABLE pilot (
+                                    ssn INT PRIMARY KEY,
+                                    flight_hours INT,
+                                    liscence_number BIGINT,
+                                    FOREIGN KEY (ssn) REFERENCES users(ssn) ON DELETE CASCADE
+                                );
+
+                                CREATE TABLE attendant (
+                                    ssn INT PRIMARY KEY,
+                                    plane_section VARCHAR(7),
+                                    supper_ssn INT,
+                                    FOREIGN KEY (ssn) REFERENCES users(ssn) ON DELETE CASCADE
+                                );
+
+                                CREATE TABLE captain (
+                                    ssn INT PRIMARY KEY,
+                                    FOREIGN KEY (ssn) REFERENCES users(ssn) ON DELETE CASCADE
+                                );
+
+                                CREATE TABLE first_officer (
+                                    ssn INT PRIMARY KEY,
+                                    FOREIGN KEY (ssn) REFERENCES users(ssn) ON DELETE CASCADE
+                                );
                             """)
+
                 conn.commit() 
-                cur.execute("SELECT assign_crew_to_flights(%s,%s);", (nfc, ncm))
+                cur.execute("SELECT assign_crew_to_flights(%s,%s,%s,%s,%s);", (nfc, ncc, ncf, ncp, nca))
                 rows = cur.fetchone() # function returns number of inserted crew members
                 conn.commit()
                 cur.close()

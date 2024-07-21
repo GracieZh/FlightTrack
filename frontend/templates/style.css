@@ -1,34 +1,39 @@
 .message {
     padding: 10px;
     margin: 5px;
-    background-color: #b3d3b3;
+    background-color: #CAF0F8;
+    border-radius: 5px;
     width: 30%;
 }
 nav a {
-    color: #2ebea8;
+    color: #023E8A;
     font-size: 3em;
-    margin-left: 15px;
+    margin-left: 4px;
     text-decoration: none;
 }
 
 .menu a {
-    color: #2ebea8;
-    font-size: 1em;
+    color: #023E8A;
+    font-size: 1.1em;
     margin-left:15px;
     text-decoration: none;
 }
 
 body {
-    background-color: #0000ff;
+    background-color: #90E0EF;
     background-size: 100% 100%;
 }
 
 h1 {
-    color:#c4ea1d
+    color:#0077B6;
 }
 
 #stats, #users {
     display: none;
+}
+
+.header {
+    padding: 10px;
 }
 
 .tooltip {
@@ -40,8 +45,8 @@ h1 {
 .tooltip .tooltiptext {
     visibility: hidden;
     width: 200px;
-    background-color: black;
-    color: #fff;
+    background-color: #0077B6;
+    color: #CAF0F8;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
@@ -57,4 +62,14 @@ h1 {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.content {
+    padding-left: 20px;
+}
+
+hr {
+    border: 1px solid #0077B6;
+    border-radius: 5px;
+    margin-top: 15px;
 }

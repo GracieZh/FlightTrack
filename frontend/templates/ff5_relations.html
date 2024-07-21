@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Fancy Feature 5: Delay and Weather Condition {% endblock %}</h1>
+    <div class='stats'>
+        {% if v|length >0 %}
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <caption><H2>Flights Distribution</H2></caption>
+                <thead>
+                    <tr><td colspan="2" rowspan="2"></td>
+                        <td colspan="{{y|length}}" style="text-align: center;background-color: lightgreen;" >{{ p }}</td>
+                    </tr>
+                    <tr style="text-align: center;background-color: lightgreen;" >
+                        {% for y_ in y %}
+                            <td>{{ y_ }}</td>
+                        {% endfor %}</tr>
+                    </thead>
+                <tbody>
+                    {% for row in v %}<tr>
+                        {% if loop.index==1 %}
+                        <td rowspan="{{x|length}}" style="text-align: center;background-color: lightgreen;">delay</td>
+                        {% endif %}
+                    <td style="text-align: center;background-color: lightgreen;">{{ dl[x[loop.index-1]] }}</td>
+                    {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
+                    </tr>{% endfor %}
+                </tbody>
+            </table>
+        </td><td>
+            <img src="/png/stats_taxiout.png" width="400" height="400" alt="taxi-out distribution">
+        </td></tr>
+        </table>
+        <br/>
+        <br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+        
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <form action="?" method="get">
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <thead>
+                    <tr><th colspan="2">Settings</th></tr>
+                </thead>
+                <tbody style="font-family: 'Courier New', Courier, monospace;font-weight: 600;">
+                    <tr><td># of intervals</td><td>
+                        <select name="nt">
+                            {% for i in range(5,21) %}
+                            <option value="{{i}}" {% if i==nt %} selected {% endif %}  >{{i}}</option>
+                            {% endfor %}
+                        </select>                        
+                    </td></tr>
+                    <tr><td>carrier</td><td>
+                        {% for carrier in carriers %}
+                            <input type="checkbox" id="cid" name="c" value="{{carrier.id}}" {% if carrier.checked %} checked {% endif %} > {{carrier.id}} - {{carrier.name}} <br/>
+                        {% endfor %}
+                    </td></tr>
+                    <tr><td>parameter</td><td>
+                        <input type="radio" name="p" value="taxi_out" {% if p=="taxi_out" %} checked {% endif %}><label for="taxi_out">Taxi out</label><br/>
+                        <input type="radio" name="p" value="temperature" {% if p=="temperature" %} checked {% endif %}><label for="temperature">Temperature</label><br/> 
+                        <input type="radio" name="p" value="humidity" {% if p=="humidity" %} checked {% endif %}><label for="humidity">Humidity</label><br/> 
+                        <input type="radio" name="p" value="wind_speed" {% if p=="wind_speed" %} checked {% endif %}><label for="wind_speed">Wind speed</label><br/> 
+                        <input type="radio" name="p" value="wind_gust" {% if p=="wind_gust" %} checked {% endif %}><label for="wind_gust">Wind gust</label><br/>
+                    </td></tr>
+
+                    <tr><td>win dir</td><td>
+                        {% for key, value in wdirs.items() %}
+                            <input type="checkbox" id="wdid" name="wdir" value="{{key}}"  {{value}} > {{key}} 
+                            {% if loop.index % 4 == 0 %}<br/>{% endif %}
+                        {% endfor %}
+                    </td></tr>
+
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Submit"></td></tr>          
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Perfomance Tuning"></td></tr>
+                </tbody>
+            </table>
+            
+            </form>
+        </td><td>
+        </td>
+        </tr></table>
+    </div>
+{% endblock %}
+
+

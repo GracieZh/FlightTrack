@@ -4,8 +4,8 @@
     <h1>{% block title %} Stats - Compare Carriers {% endblock %}</h1>
     <div class='stats'>
         {% if rows|length > 0 %}
-        <table style="background-color:#FFFFE0;"><tr><td>
-            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                 <tr>
                     <td rowspan="2">Carrier Code</td>
                     <td rowspan="2">On time</td>
@@ -38,9 +38,9 @@
 
         {% include 'performance.html' %}
 
-        <table style="background-color:#FFFFE0;"><tr><td>
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
             <form action="?" method="get">
-            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                 <thead>
                     <tr><th colspan="2">Search for flights</th></tr>
                 </thead>
@@ -51,7 +51,7 @@
                         {% endfor %}
                     </td></tr>
                     <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Search"></td></tr>          
-                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Perfomance Tuning"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="action" value="Performance Tuning"></td></tr>
                 </tbody>
             </table>
             

@@ -5,8 +5,8 @@
     <div class='stats'>
         {% if flights|length >0 %}
         <table><tr><td></td></tr></table>
-            <table style="background-color:#FFFFE0;"><tr><td>
-                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <caption><H2>Flights to {{flights[0].city}}, {{flights[0].region}} </H2></caption>
                     <thead>
                         <tr><th>Monday</th>
@@ -48,8 +48,8 @@
             {% if tflights|length >0 %}
             </td></tr><tr><td>
             <br/><br/>
-            <table style="background-color:#FFFFE0;"><tr><td>
-                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <caption><H2>Detail information of {{tflights[0].tn}} </H2></caption>
                     <thead>
                         <tr><th>Flight</th>
@@ -64,7 +64,7 @@
                         {% for f in tflights %}
                         <tr 
                             {% if f.city == flights[0].city %}
-                            style="background-color:lightgreen"
+                            style="background-color:#90E0EF"
                             {% endif %}
                             >
                             <td>{{ f.tn}}</td>
@@ -88,12 +88,12 @@
         <br/>
         {% endif %}
         
-        <table style="background-color:#FFFFE0;"><tr><th colspan="3">Search for Flights
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><th colspan="3">Search for Flights
             </th></tr>
             <tr><td>
 
-            <table cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
-                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+            <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <thead>
                         <tr><th>Click the country for the flights</th></tr>
                     </thead>
@@ -108,7 +108,7 @@
             </td>
             {% if states|length > 0 %}
             <td>
-                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <thead>
                         <tr><th>Click the region for the flights</th></tr>
                     </thead>
@@ -124,7 +124,7 @@
             {% endif %}
             {% if cities|length > 0 %}
                 <td>
-                    <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                    <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                         <thead>
                             <tr><th>Click the city for the flights</th></tr>
                         </thead>

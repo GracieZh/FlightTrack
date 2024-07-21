@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Fancy Feature 3: Passenger Travel History {% endblock %}</h1>
+    <div class='stats'>
+        {% if rows|length >0 %}
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                    <caption><H2>Search result:</H2></caption>
+                    <thead>
+                        <tr style="text-align: center;background-color: lightgreen;" >
+                            <td>SSN</td>
+                            <td>flight</td>
+                            <td colspan="2">name</td>
+                            <td>tail number</td>
+                            <td colspan="3">destination</td>
+                        </thead>
+                    <tbody>
+                        {% for row in rows %}<tr>
+                            {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </td></tr>
+            </table>
+            <br/>
+        <br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+        
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <form action="?" method="get">
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <thead>
+                    <tr><th colspan="2">Search Passenger Travel History</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>First name</td><td style="text-align: center;"><input name="fname" value=""></td></tr>
+                    <tr><td>Last name</td><td style="text-align: center;"><input name="lname" value=""></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Search"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Performance Tuning"></td></tr>
+                </tbody>
+            </table>
+            </form>
+        </td></tr></table>
+    </div>
+{% endblock %}

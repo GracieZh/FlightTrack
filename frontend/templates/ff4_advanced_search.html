@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Fancy Feature 4: Crew Info {% endblock %}</h1>
+    <div class='stats'>
+
+        
+        {% if captains|length >0 %}
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr style="vertical-align: top;"><td>
+
+                {% set noc = captains|length %}
+                {% set nor = (noc + 3) // 4 %}
+                {% for k in range(4) %}
+                    <table border="2" cellpadding="5" style="margin: auto; background-color:#CAF0F8; border-radius: 5px;">
+                        <caption><H2>Captains</H2></caption>
+                        <thead>
+                            <tr style="text-align: center;background-color: lightgreen;" >
+                                <td>First Name</td>
+                                <td>Last Name</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for j in range(nor) %}<tr>
+                                {% if k*nor+j < captains|length %}
+                                {% set row = captains[k*nor+j] %}
+                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&submit=Search+crew">{{row.fname}}</a></td>
+                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&submit=Search+crew">{{row.lname}}</a></td>
+                                {% endif %}
+                            </tr>{% endfor %}
+                        </tbody>
+                    </table>
+                    </td><td>
+                {% endfor %}
+
+            </td></tr>
+            </table>
+            <br/>
+        <br/>
+        {% endif %}
+
+        {% if crew|length >0 %}
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                    <caption><H2>Search result:</H2></caption>
+                    <thead>
+                        <tr style="text-align: center;background-color: lightgreen;" >
+                            <td>SSN</td>
+                            <td colspan="2">Name</td>
+                            <td>Title</td>
+                            <td>Tail Number</td>
+                        </thead>
+                    <tbody>
+                        {% for row in crew %}<tr>
+                            {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
+                        </tr>{% endfor %}
+                    </tbody>
+                </table>
+            </td></tr>
+            </table>
+            <br/>
+        <br/>
+        {% endif %}
+
+        {% include 'performance.html' %}
+        
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <form action="?" method="get">
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <thead>
+                    <tr><th colspan="2">Search for Captains</th><th colspan="2">Search for other crew members</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td colspan="2" rowspan="4"><input type="submit" name="submit" value="View Captains"></td>
+                        <td>First name</td><td style="text-align: center;"><input name="fname" value="{{ name[0] }}"></td></tr>
+                    <tr><td>Last name</td><td style="text-align: center;"><input name="lname" value="{{ name[1] }}"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Search Crew"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Performance Tuning"></td></tr>
+                </tbody>
+            </table>
+            
+            </form>
+        </td><td>
+        </td>
+        </tr></table>
+
+
+    </div>
+{% endblock %}

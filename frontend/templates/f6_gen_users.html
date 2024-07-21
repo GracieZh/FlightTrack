@@ -6,7 +6,7 @@
 
         {% if result["message"]|length > 0 %}
         <table style="background-color:purple;"><tr><td>
-            <table border="2" cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
                 <H2 style="color: purple;">{{result["message"] | safe }}</H2>
             </td></tr></table>
         </td></tr></table>
@@ -39,8 +39,8 @@
             }            
 
         </script>
-        <table style="background-color:lightgreen;"><tr><td>
-            <table border="2" cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
+        <table style="background-color:#90E0EF;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
 
                 <svg width="750" height="90">
                     {% set dx=690 %}
@@ -59,8 +59,8 @@
         
 
         {% if result["users"]|length >0 %}
-        <table style="background-color:lightgreen;"><tr><td>
-            <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+        <table style="background-color:#90E0EF;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                 <caption><H2>Ramdom records of in user table (Total {{result["nusers"]}} rows in the table)</H2></caption>
                 <thead>
                     <tr><th colspan="11" style="text-align: center;">Sample records</th></tr>
@@ -90,8 +90,8 @@
 
         <table><tr style="vertical-align: top;"><td>
             {% if result["tuning"]|length > 0 %}
-            <table style="margin: auto; background-color:lightgreen;"><tr><td>
-                <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+            <table style="margin: auto; background-color:#90E0EF;"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <caption><H2>Performance tuning</H2></caption>
                     <thead>
                         <tr><th colspan="2"> Time for generate {{result["tuning"][0]}} users</th></tr>
@@ -105,13 +105,13 @@
             </table>
             {% endif %}
     
-            <table style="margin: auto; background-color:#FFFFE0;" width="100%"><tr><th colspan="3">Generate users
+            <table style="margin: auto; background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><th colspan="3">Generate users
             </th></tr>
             <tr><td>
 
-                <table cellpadding="5" style="background-color:#FFFFE0;" width="100%"><tr><td>
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><td>
                     <form action="?" method="get">
-                        <table border="2" cellpadding="5" style="background-color:#FFFFE0;" width="100%">
+                        <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%">
                             <thead>
                                 <tr><th>Number of users to be generated</th></tr>
                             </thead>
@@ -134,7 +134,7 @@
             </td><td></td></tr></table>
         </td><td>
             {% if result["ticket_created"] > 0 %}
-                <table border="2" cellpadding="5" style="background-color:lightgreen;" width="100%"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#90E0EF;" width="100%"><tr><td>
                     <table border="2" cellpadding="5" width="100%">
                         <caption><H2>{{ result["ticket_created"] }} tickets generated</H2></caption>
                     </table>
@@ -143,15 +143,15 @@
                 <br>
             {% endif %}
             
-            <table style="background-color:#FFFFE0;"><tr><th colspan="3">Generate tickets
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><th colspan="3">Generate tickets
                 </th></tr>
                 <tr><td>
 
-                <table cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
                     <form action="?" method="get">
-                        <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                        <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                             <tr><th colspan="2">Number of flights for generating tickets</th></tr>
-                            <tr><td>Number</td><td><input name="nf" value="500"></td></tr>
+                            <tr><td>Number</td><td><input name="nf" value="100"></td></tr>
                             <tr><th colspan="2">Number of tickets for each flight</th></tr>
                             <tr><td>Economy class</td><td><input name="ce" value="10"></td></tr>
                             <tr><td>Premium Economy class</td><td><input name="cp" value="5"></td></tr>
@@ -171,7 +171,7 @@
         <tr style="text-align: center ;vertical-align: top;"><td>
 
             {% if result["crew_member_assigned"] > 0 %}
-                <table border="2" cellpadding="5" style="background-color:lightgreen;" width="100%"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#90E0EF;" width="100%"><tr><td>
                     <table border="2" cellpadding="5" width="100%">
                         <caption><H2>{{ result["crew_member_assigned"] }} crew members assigned</H2></caption>
                     </table>
@@ -179,16 +179,19 @@
                 </td></tr></table>
                 <br>
             {% endif %}
-            <table style="margin: auto;background-color:#FFFFE0;" width="100%"><tr><th colspan="3">Assign crew to flights
+            <table style="margin: auto;background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><th colspan="3">Assign crew to flights
                 </th></tr>
                 <tr><td>
-                <table cellpadding="5" style="background-color:#FFFFE0;" width="100%"><tr><td>
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><td>
                     <form action="?" method="get">
-                        <table border="2" cellpadding="5" style="background-color:#FFFFE0;" width="100%">
+                        <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%">
                             <tr><th colspan="2">Number of flights for assigning crew</th></tr>
-                            <tr><td>Number</td><td><input name="nfc" value="500"></td></tr>
+                            <tr><td>Number</td><td><input name="nfc" value="50"></td></tr>
                             <tr><th colspan="2">Number of crew members for each flight</th></tr>
-                            <tr><td>Members</td><td><input name="ncm" value="3"></td></tr>
+                            <tr><td>Captain</td><td><input name="ncc" value="1" readonly></td></tr>
+                            <tr><td>First officer</td><td><input name="ncf" value="1"></td></tr>
+                            <tr><td>Other Pilots<br>(except the above)</td><td><input name="ncp" value="1"></td></tr>
+                            <tr><td>Attendants</td><td><input name="nca" value="3"></td></tr>
                             <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Assign"></td></tr>
                         </table>
                     </form>
@@ -201,7 +204,7 @@
 
         </td><td>
             {% if result["tickets_assigned"] > 0 %}
-                <table border="2" cellpadding="5" style="background-color:lightgreen;" width="100%"><tr><td>
+                <table border="2" cellpadding="5" style="background-color:#90E0EF;" width="100%"><tr><td>
                     <table border="2" cellpadding="5" width="100%">
                         <caption><H2>{{ result["tickets_assigned"] }} tickets assigned</H2></caption>
                     </table>
@@ -210,12 +213,12 @@
                 <br>
             {% endif %}
             
-            <table style="margin: auto; background-color:#FFFFE0;" width="100%"><tr><th colspan="3">Assign tickets to passengers
+            <table style="margin: auto; background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><th colspan="3">Assign tickets to passengers
                 </th></tr>
                 <tr><td>
-                <table cellpadding="5" style="background-color:#FFFFE0;" width="100%"><tr><td>
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%"><tr><td>
                     <form action="?" method="get">
-                        <table border="2" cellpadding="5" style="background-color:#FFFFE0;" width="100%">
+                        <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;" width="100%">
                             <tr><th colspan="2">Percentage of tickets to be assigned</th></tr>
                             <tr><td>Percentage</td><td><input name="pt" value="80">%</td></tr>
                             <tr><td colspan="2" style="text-align: center;"><input type="submit" value="Assign"></td></tr>
@@ -233,11 +236,11 @@
         <br><br><br>
 
         <table><tr><td style="vertical-align: top;">
-            <table style="background-color:#FFFFE0;"><tr><th colspan="3">Note
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><th colspan="3">Note
             </th></tr>
             <tr><td>
-                <table cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
-                    <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                    <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                         <tr><td>
                             Store procedures and functions and triggers are going to be used.<br/>
                         </td></tr>
@@ -245,11 +248,11 @@
                 </td></tr></table>
             </td><td></td></tr></table>
         </td><td>
-            <table style="background-color:#FFFFE0;"><tr><th colspan="3">Notes on how to test
+            <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><th colspan="3">Notes on how to test
             </th></tr>
             <tr><td>
-                <table cellpadding="5" style="background-color:#FFFFE0;"><tr><td>
-                    <table border="2" cellpadding="5" style="background-color:#FFFFE0;">
+                <table cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                    <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                         <tr><td>
                             Drop tables, and click generate/assign button,<br>
                             then using select to check if content are generated correctly.
