@@ -8,7 +8,7 @@
             <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                 <caption><H2>Search result:</H2></caption>
                 <thead>
-                    <tr style="text-align: center;background-color: lightgreen;" >
+                    <tr style="text-align: center;background-color: #4fc1d5;" >
                         <td colspan="2">Name</td>
                         <td>SSN</td>
                         <td># of Tickets Bought</td>
@@ -17,7 +17,13 @@
                     </thead>
                 <tbody>
                     {% for row in rows %}<tr>
-                        {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
+                        {% for i in range(row|length) %}<td>
+                            {% if i==0 or i==1 %}
+                                <a href="{{url_for('handle_advanced_search_3')}}?fname={{row[0]}}&lname={{row[1]}}">{{row[i]}}</a>
+                            {% else %}
+                                {{row[i]}}
+                            {% endif %}
+                        </td>{% endfor %}
                     </tr>{% endfor %}
                 </tbody>
             </table>

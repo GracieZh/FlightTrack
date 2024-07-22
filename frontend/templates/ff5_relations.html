@@ -9,9 +9,9 @@
                 <caption><H2>Flights Distribution</H2></caption>
                 <thead>
                     <tr><td colspan="2" rowspan="2"></td>
-                        <td colspan="{{y|length}}" style="text-align: center;background-color: lightgreen;" >{{ p }}</td>
+                        <td colspan="{{y|length}}" style="text-align: center;background-color: #4fc1d5;" >{{ p }}</td>
                     </tr>
-                    <tr style="text-align: center;background-color: lightgreen;" >
+                    <tr style="text-align: center;background-color: #4fc1d5;" >
                         {% for y_ in y %}
                             <td>{{ y_ }}</td>
                         {% endfor %}</tr>
@@ -19,9 +19,9 @@
                 <tbody>
                     {% for row in v %}<tr>
                         {% if loop.index==1 %}
-                        <td rowspan="{{x|length}}" style="text-align: center;background-color: lightgreen;">delay</td>
+                        <td rowspan="{{x|length}}" style="text-align: center;background-color: #4fc1d5;">delay</td>
                         {% endif %}
-                    <td style="text-align: center;background-color: lightgreen;">{{ dl[x[loop.index-1]] }}</td>
+                    <td style="text-align: center;background-color: #4fc1d5;">{{ dl[x[loop.index-1]] }}</td>
                     {% for i in range(row|length) %}<td>{{row[i]}}</td>{% endfor %}
                     </tr>{% endfor %}
                 </tbody>

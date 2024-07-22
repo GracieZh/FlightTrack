@@ -4,6 +4,61 @@
     <h1>{% block title %} Fancy Feature 4: Crew Info {% endblock %}</h1>
     <div class='stats'>
 
+
+        {% if userinfo["message"] %}
+        <table style="background-color:purple;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+                <H2 style="color: purple;">{{ userinfo["message"] | safe }}</H2>
+            </td></tr></table>
+        </td></tr></table>
+        <br/>
+        {% endif %}
+
+
+        {% if userinfo["message"] or userinfo["admin"] + userinfo["crew"] == 0 %}
+        <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
+            <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                <thead>
+                    <tr><th colspan="2">Log in</th></tr>
+                </thead>
+                <tbody>
+                    <form action="?" method="get">
+                    <tr><td>User id</td><td style="text-align: center;"><input id="uid" name="uid" value="{{ name[0] }}"></td></tr>
+                    <tr><td>Password</td><td style="text-align: center;"><input id="pw" type="password", name="pw" value="{{ name[1] }}"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Login"></td></tr>
+                    <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Generate login accounts"></td></tr>
+                    </form>
+
+                    {% if login_users|length > 0 %}
+                    <tr><td colspan="2" style="text-align: center;">
+                        <table border="1" cellpadding="3">
+                            <tr><td colspan="4">Login as:</td></tr>
+                            {% for user in login_users %}
+                                <tr> 
+                                    <td>{{user[0]}}</td>
+                                    <td>{{user[2]}}</td>
+                                    <td>{{user[3]}}</td>
+                                    <td><input type="radio" name="cm" onclick="select_user({{user[0]}}, '{{user[1]}}')"></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            <script>
+                function select_user(uid, pw) {
+                    var euid = document.getElementById("uid");
+                    var epw  = document.getElementById("pw");
+                    euid.setAttribute('value', uid )
+                    epw.setAttribute('value', pw )
+
+                }
+            </script>
+            
+        </td></tr></table>
+        {% endif %}
+
         
         {% if captains|length >0 %}
             <table style="background-color:#CAF0F8; border-radius: 5px;"><tr style="vertical-align: top;"><td>
@@ -14,7 +69,7 @@
                     <table border="2" cellpadding="5" style="margin: auto; background-color:#CAF0F8; border-radius: 5px;">
                         <caption><H2>Captains</H2></caption>
                         <thead>
-                            <tr style="text-align: center;background-color: lightgreen;" >
+                            <tr style="text-align: center;background-color: #4fc1d5;" >
                                 <td>First Name</td>
                                 <td>Last Name</td>
                             </tr>
@@ -22,9 +77,9 @@
                         <tbody>
                             {% for j in range(nor) %}<tr>
                                 {% if k*nor+j < captains|length %}
-                                {% set row = captains[k*nor+j] %}
-                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&submit=Search+crew">{{row.fname}}</a></td>
-                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&submit=Search+crew">{{row.lname}}</a></td>
+                                    {% set row = captains[k*nor+j] %}
+                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&uid={{userinfo['id']}}&submit=Search+Crew">{{row.fname}}</a></td>
+                                    <td><a href="?fname={{row.fname}}&lname={{row.lname}}&uid={{userinfo['id']}}&submit=Search+Crew">{{row.lname}}</a></td>
                                 {% endif %}
                             </tr>{% endfor %}
                         </tbody>
@@ -43,7 +98,7 @@
                 <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <caption><H2>Search result:</H2></caption>
                     <thead>
-                        <tr style="text-align: center;background-color: lightgreen;" >
+                        <tr style="text-align: center;background-color: #4fc1d5;" >
                             <td>SSN</td>
                             <td colspan="2">Name</td>
                             <td>Title</td>
@@ -62,7 +117,9 @@
         {% endif %}
 
         {% include 'performance.html' %}
-        
+
+        {% if userinfo["admin"] + userinfo["crew"] > 0 %}
+
         <table style="background-color:#CAF0F8; border-radius: 5px;"><tr><td>
             <form action="?" method="get">
             <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
@@ -77,11 +134,31 @@
                     <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Performance Tuning"></td></tr>
                 </tbody>
             </table>
-            
+            <input type="hidden" name="uid" value="{{ userinfo['id'] }}">
             </form>
         </td><td>
         </td>
         </tr></table>
+        {% if userinfo["admin"] + userinfo["crew"] > 0 %}
+        <br/><br/>
+        <table style="background-color:#CAF0F8; border-radius: 5px;">
+            <tr>
+                <td>
+                    <form action="?" method="get">
+                        <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
+                            <tbody>
+                                <tr><td>user: {{userinfo["id"]}} {% if userinfo["admin"] %}, admin {% endif %} {% if userinfo["crew"] %}, crew {% endif %}</td>
+                                    <td><input type="submit" name="submit" value="Logout"></td></tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+            
+        {% endif %}
+
+        {% endif %}
 
 
     </div>

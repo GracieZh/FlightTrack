@@ -8,7 +8,7 @@
                 <table border="2" cellpadding="5" style="background-color:#CAF0F8; border-radius: 5px;">
                     <caption><H2>Search result:</H2></caption>
                     <thead>
-                        <tr style="text-align: center;background-color: lightgreen;" >
+                        <tr style="text-align: center;background-color: #4fc1d5;" >
                             <td>SSN</td>
                             <td>flight</td>
                             <td colspan="2">name</td>
@@ -36,8 +36,8 @@
                     <tr><th colspan="2">Search Passenger Travel History</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>First name</td><td style="text-align: center;"><input name="fname" value=""></td></tr>
-                    <tr><td>Last name</td><td style="text-align: center;"><input name="lname" value=""></td></tr>
+                    <tr><td>First name</td><td style="text-align: center;"><input name="fname" value="{{ name[0] }}"></td></tr>
+                    <tr><td>Last name</td><td style="text-align: center;"><input name="lname" value="{{ name[1] }}"></td></tr>
                     <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Search"></td></tr>
                     <tr><td colspan="2" style="text-align: center;"><input type="submit" name="submit" value="Performance Tuning"></td></tr>
                 </tbody>
