@@ -66,7 +66,7 @@ def stats_carrier_performance_compare():
                     "61": row[5]
                 })
 
-            if action == "Perfomance Tuning":
+            if action == "Performance Tuning":
                 performance = perfomance_tuning(conn, 100, query, ["No Index","With Index"],
                     '''
                     DROP INDEX IF EXISTS idx_flight_1;
