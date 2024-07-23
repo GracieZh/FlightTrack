@@ -68,7 +68,7 @@ def stats_taxiout():
                             ROUND(y_min + (y_max - y_min) * 1.0/{ny} * n,2) AS lower_bound,
                             ROUND(y_min + (y_max - y_min) * 1.0/{ny} * (n + 1),2) AS upper_bound
                         FROM 
-                            generate_series(0, {ny}) AS n
+                            generate_series(0, {ny - 1}) AS n
                         CROSS JOIN 
                             y_ranges
                     ),
