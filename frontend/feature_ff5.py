@@ -17,7 +17,7 @@ def stats_taxiout():
     carrier_codes_str = "({})".format(", ".join(["'{}'".format(code) for code in carrier_codes]))
     wind_dirs = request.args.getlist('wdir')
     wind_dirs_str = "({})".format(", ".join(["'{}'".format(wd) for wd in wind_dirs]))
-    nt = request.args.get('nt', type=int)
+    ny = request.args.get('nt', type=int)
     parameter = request.args.get('p')
 
     action = request.args.get('action')
@@ -37,7 +37,7 @@ def stats_taxiout():
     u = []
     performance = []
 
-    if nt != None and len(carrier_codes) > 0:
+    if ny != None and len(carrier_codes) > 0:
         try:
             conn = get_conn()
             cur = conn.cursor()
@@ -56,23 +56,23 @@ def stats_taxiout():
                         WHERE 
                             {condition}
                     ),
-                    tranges AS (
+                    y_ranges AS (
                         SELECT 
-                            MIN(param) AS min_tout,
-                            MAX(param) AS max_tout
+                            MIN(param) AS y_min,
+                            MAX(param) AS y_max
                         FROM 
                             flight_with_weather
                     ),
-                    tintervals AS (
+                    y_intervals AS (
                         SELECT 
-                            ROUND(min_tout + (max_tout - min_tout) * 1.0/{nt-1} * n,2) AS lower_bound,
-                            ROUND(min_tout + (max_tout - min_tout) * 1.0/{nt-1} * (n + 1),2) AS upper_bound
+                            ROUND(y_min + (y_max - y_min) * 1.0/{ny} * n,2) AS lower_bound,
+                            ROUND(y_min + (y_max - y_min) * 1.0/{ny} * (n + 1),2) AS upper_bound
                         FROM 
-                            generate_series(0, {nt-1}) AS n
+                            generate_series(0, {ny}) AS n
                         CROSS JOIN 
-                            tranges
+                            y_ranges
                     ),
-                    dintervals AS (
+                    delay_intervals AS (
                         SELECT * FROM (
                             VALUES
                                 (1, -10000, 0.00),
@@ -85,25 +85,25 @@ def stats_taxiout():
                     delays AS (
                         SELECT 
                             departure_delay,
-                            d.value AS d_value,
-                            t.lower_bound AS t_range_lower_bound
+                            d.value AS x_value,
+                            y.lower_bound AS y_value
                         FROM 
                             flight_with_weather f
                         JOIN 
-                            dintervals d ON f.departure_delay > d.lower_bound AND f.departure_delay <= d.upper_bound
+                            delay_intervals d ON f.departure_delay > d.lower_bound AND f.departure_delay <= d.upper_bound
                         JOIN 
-                            tintervals t ON f.param >= t.lower_bound AND f.param < t.upper_bound
+                            y_intervals y ON f.param >= y.lower_bound AND f.param < y.upper_bound
                     )
                     SELECT 
-                        d_value,
-                        t_range_lower_bound,
-                        COUNT(*) AS num_delays
+                        x_value,
+                        y_value,
+                        COUNT(*) AS num_of_flights
                     FROM 
                         delays
                     GROUP BY 
-                        d_value,t_range_lower_bound
+                        x_value,y_value
                     ORDER BY 
-                        d_value,t_range_lower_bound;
+                        x_value,y_value;
                 """
             print("query:\n", query)
             cur.execute(query)
@@ -217,4 +217,4 @@ def stats_taxiout():
     for wd in wind_dirs:
         wdirs[wd] = 'checked'
 
-    return render_template('ff5_relations.html', carriers=carriers, p=parameter, dl=delay_labels, x=x, y=y, v=u, nt=nt, stats=performance, wdirs=wdirs)
+    return render_template('ff5_relations.html', carriers=carriers, p=parameter, dl=delay_labels, x=x, y=y, v=u, nt=ny, stats=performance, wdirs=wdirs)
