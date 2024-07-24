@@ -255,6 +255,7 @@ def user_gen():
         try:
             conn = get_conn()
             cur = conn.cursor()
+            cur.execute("DROP VIEW IF EXISTS passenger_travel_history;")
             # need to drop 'passengers' before 'boarding_tickets' due to ticket_id foreign key in 'passengers'
             cur.execute("DROP TABLE IF EXISTS passengers;")
             conn.commit() 
@@ -300,6 +301,7 @@ def user_gen():
                 result["message"]="Table 'users' not exists.<br>Please generate some users and rename the table 'users_gen' to 'users' first."
             else:
                 cur = conn.cursor()
+                cur.execute("DROP VIEW IF EXISTS crew_with_title;")
                 cur.execute("DROP TABLE IF EXISTS flight_crew_log;")
                 cur.execute("DROP TABLE IF EXISTS pilot;")
                 cur.execute("DROP TABLE IF EXISTS attendant;")
@@ -363,6 +365,7 @@ def user_gen():
                 result["message"]="Table 'users' not exists.<br>Please generate some users and rename the table 'users_gen' to 'users' first."
             else:
                 cur = conn.cursor()
+                cur.execute("DROP VIEW IF EXISTS passenger_travel_history;")
                 cur.execute("DROP TABLE IF EXISTS passengers;")
                 conn.commit() 
                 cur.execute("""
