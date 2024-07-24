@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS streets (
 
 -- Import data from CSV file into the table streets
 COPY streets (street)
-FROM 'C:/projects/cs338-proj/datasets/address.txt'
+FROM 'C:/projects/cs338-proj/dbproj/datasets/address.txt'
 WITH (FORMAT csv, HEADER, ENCODING 'UTF8');
 
 -- Drop the table names
@@ -38,15 +38,15 @@ CREATE TEMP TABLE temp_last (
 
 -- Import data from each CSV file into the corresponding temporary table
 COPY temp_boys (boy)
-FROM 'C:/projects/cs338-proj/datasets/top1000boynames.txt'
+FROM 'C:/projects/cs338-proj/dbproj/datasets/top1000boynames.txt'
 WITH (FORMAT csv, HEADER, ENCODING 'UTF8');
 
 COPY temp_girls (girl)
-FROM 'C:/projects/cs338-proj/datasets/top1000girlnames.txt'
+FROM 'C:/projects/cs338-proj/dbproj/datasets/top1000girlnames.txt'
 WITH (FORMAT csv, HEADER, ENCODING 'UTF8');
 
 COPY temp_last (last)
-FROM 'C:/projects/cs338-proj/datasets/top1000lastnames.txt'
+FROM 'C:/projects/cs338-proj/dbproj/datasets/top1000lastnames.txt'
 WITH (FORMAT csv, HEADER, ENCODING 'UTF8');
 
 -- Insert data from the temporary tables into the target table
