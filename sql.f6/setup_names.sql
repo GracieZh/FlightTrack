@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS streets (
 
 -- Import data from CSV file into the table streets
 COPY streets (street)
-FROM 'C:/projects/cs338-proj/dataset/address.txt'
+FROM 'C:/projects/cs338-proj/datasets/address.txt'
 WITH (FORMAT csv, HEADER, ENCODING 'UTF8');
 
 -- Drop the table names
