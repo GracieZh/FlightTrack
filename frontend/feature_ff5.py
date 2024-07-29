@@ -1,12 +1,12 @@
-from flask import render_template, request
-from conn import get_conn
-from psycopg2 import Error
-import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize, ListedColormap
 import numpy as np
+import matplotlib.pyplot as plt
 import math
-from feature_1 import get_carriers
+from psycopg2 import Error
+from matplotlib.colors import Normalize, ListedColormap
+from flask import render_template, request
 from feature_2 import perfomance_tuning
+from feature_1 import get_carriers
+from conn import get_conn
 
 # Fancy feature 5: 
 def stats_taxiout():
@@ -43,7 +43,7 @@ def stats_taxiout():
             cur = conn.cursor()
             condition = f"carrier_code IN {carrier_codes_str} AND wind_dir IN {wind_dirs_str}"
 
-            # param can be one of:    taxi_out, temperature, humidity, wind_speed, wind_gust
+            # param can be one of: { taxi_out, temperature, humidity, wind_speed, wind_gust }
 
             query =  f"""
                     WITH flight_with_weather AS (
@@ -140,14 +140,12 @@ def stats_taxiout():
         # present data
 
         print("-------------------")
-
         print(stats)
         print("============")
 
         # Extract unique values for X and Y, convert them to integers
         x = sorted(set(int(item[0]) for item in rows)) # d_value {1,2,3,4,5}; 1: on time, 2: < 10min, etc.
         y = sorted(set(int(item[1]) for item in rows))[::-1] # t_range_lower_bound
-        # [::-1] get rid of the last one
 
         print("X:", x)
         print("Y:", y)
